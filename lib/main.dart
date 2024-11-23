@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gp1/screens/LoginScreen/login.dart';
+import 'package:gp1/screens/SigninScreen/signin.dart';
 import 'package:gp1/welcome_page.dart';
 
 void main() {
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const WelcomePage(), // تحديد صفحة الترحيب كصفحة رئيسية
+      home:  WelcomePage(), // تحديد صفحة الترحيب كصفحة رئيسية
     );
   }
 }
