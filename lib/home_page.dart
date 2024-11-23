@@ -13,7 +13,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int _selectedIconIndex = -1; // -1 means no icon is selected
   late AnimationController _controller;
   late Animation<double> _textAnimation;
-  String _selectedMenuItem = "";
   String _selectedBottomMenu = "Home"; // Default selected menu item
 
   @override
@@ -157,7 +156,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 30), // Reduced the height here to move "Menu" upwards
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
@@ -171,7 +170,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       _buildMenuItem("Privacy Info"),
                       _buildMenuItem("Send Feedback"),
                       Padding(
-                        padding: const EdgeInsets.only(top: 417.0),
+                        padding: const EdgeInsets.only(top: 435.0),
                         child: const Divider(
                           thickness: 1,
                           color: Colors.black38,
