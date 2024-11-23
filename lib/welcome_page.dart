@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 
-
-
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFE8C3BA), // Light pink background
+      backgroundColor: Colors.white, // Changed background color to white
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            // Spacer removed to allow upward movement of the content
             const SizedBox(height: 70), // Reduced space before the logo
 
-            // Logo (move further down)
+            // Logo
             Image.asset(
               'assets/logo1.png',
               height: 350, // Logo size
@@ -26,7 +23,7 @@ class WelcomePage extends StatelessWidget {
 
             const SizedBox(height: 2), // Reduced space after logo
 
-            // App description with custom font and white text
+            // App description with custom font and black text
             const Text(
               'Welcome to DR Glowy, your go-to app for all things beauty!',
               textAlign: TextAlign.center,
@@ -39,9 +36,9 @@ class WelcomePage extends StatelessWidget {
 
             const SizedBox(height: 40), // Reduced space between description and buttons
 
-            // Login Button
+            // Login Button with increased size
             SizedBox(
-              width: 200, // Uniform button width
+              width: 250, // Increased width for the button
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -50,22 +47,28 @@ class WelcomePage extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: const Color(0xFFE8C3BA), // Text color same as background
-                  padding: const EdgeInsets.symmetric(vertical: 15), // Consistent height
+                  backgroundColor: const Color.fromRGBO(236, 172, 164, 1), // Set color to (236, 172, 164, 1)
+                  padding: const EdgeInsets.symmetric(vertical: 15), // Increased height for button
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text('Login'),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
+                    color: Colors.white, // White text for the button
+                    fontWeight: FontWeight.w900, // Make text bolder
+                    fontSize: 22, // Increased font size for the text
+                  ),
+                ),
               ),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 20), // Space between buttons
 
-            // Sign-up Button
+            // Sign Up Button with increased size
             SizedBox(
-              width: 200, // Uniform button width
+              width: 250, // Increased width for the button
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -74,20 +77,26 @@ class WelcomePage extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: const Color(0xFFE8C3BA), // Text color same as background
-                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  backgroundColor: const Color.fromRGBO(236, 172, 164, 1), // Set color to (236, 172, 164, 1)
+                  padding: const EdgeInsets.symmetric(vertical: 15), // Increased height for button
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text('Sign Up'),
+                child: const Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    color: Colors.white, // White text for the button
+                    fontWeight: FontWeight.w900, // Make text bolder
+                    fontSize: 22, // Increased font size for the text
+                  ),
+                ),
               ),
             ),
 
             const SizedBox(height: 20),
 
-            // Continue as Guest Button (Text Only)
+            // Continue as Guest Button (Text Only) with increased font size
             TextButton(
               onPressed: () {
                 Navigator.push(
@@ -96,13 +105,13 @@ class WelcomePage extends StatelessWidget {
                 );
               },
               style: TextButton.styleFrom(
-                foregroundColor: Colors.white, // White text for button
+                foregroundColor: const Color.fromRGBO(236, 172, 164, 1), // Set text color to (236, 172, 164, 1)
               ),
               child: const Text(
                 'Continue as Guest',
                 style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 18, // Increased font size for text
+                  fontWeight: FontWeight.w600, // Make text bolder
                 ),
               ),
             ),
