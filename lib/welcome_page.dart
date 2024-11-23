@@ -47,7 +47,7 @@ class WelcomePage extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(236, 172, 164, 1), // Set color to (236, 172, 164, 1)
+                  backgroundColor: const Color(0xFFE8C3BA), // Set color to (236, 172, 164, 1)
                   padding: const EdgeInsets.symmetric(vertical: 15), // Increased height for button
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -77,7 +77,7 @@ class WelcomePage extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(236, 172, 164, 1), // Set color to (236, 172, 164, 1)
+                  backgroundColor: const Color(0xFFE8C3BA), // Set color to (236, 172, 164, 1)
                   padding: const EdgeInsets.symmetric(vertical: 15), // Increased height for button
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -105,7 +105,7 @@ class WelcomePage extends StatelessWidget {
                 );
               },
               style: TextButton.styleFrom(
-                foregroundColor: const Color.fromRGBO(236, 172, 164, 1), // Set text color to (236, 172, 164, 1)
+                foregroundColor: const Color(0xFFE8C3BA), // Set text color to (236, 172, 164, 1)
               ),
               child: const Text(
                 'Continue as Guest',

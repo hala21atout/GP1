@@ -61,18 +61,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80), // Increase the height of the AppBar
+        preferredSize: const Size.fromHeight(70), // Increase the height of the AppBar
         child: AppBar(
           backgroundColor: const Color(0xFFE8C3BA),
           elevation: 0,
           automaticallyImplyLeading: false, // Remove the default leading behavior
           flexibleSpace: Padding(
-            padding: const EdgeInsets.only(top: 25.0, left: 5.0), // Adjust the padding
+            padding: const EdgeInsets.only(top: 30.0, left: 5.0), // Adjust the padding
             child: Align(
               alignment: Alignment.topLeft, // Position it to the left
               child: SizedBox(
-                width: 80, // Set the exact width for the logo
-                height: 80, // Set the exact height for the logo
+                width: 100, // Set the exact width for the logo
+                height: 100, // Set the exact height for the logo
                 child: Image.asset(
                   'assets/logo1.png',
                   fit: BoxFit.contain, // Ensure the image scales without stretching
@@ -137,11 +137,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 125),
-                  _buildAnimatedButton("Makeup", imagePath: "assets/makeup.jpg"),
+                  _buildButtonWithAnimation("Makeup", imagePath: "assets/makeup.jpg"),
                   const SizedBox(height: 50),
-                  _buildAnimatedButton("Skin Care", imagePath: "assets/skincare.jpg"),
+                  _buildButtonWithAnimation("Skin Care", imagePath: "assets/skincare.jpg"),
                   const SizedBox(height: 50),
-                  _buildAnimatedButton("Doctors", imagePath: "assets/doctors.jpg"),
+                  _buildButtonWithAnimation("Doctors", imagePath: "assets/doctors.jpg"),
                   Expanded(child: Container()),
                   _buildBottomMenu(),
                 ],
@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       _buildMenuItem("Privacy Info"),
                       _buildMenuItem("Send Feedback"),
                       Padding(
-                        padding: const EdgeInsets.only(top: 300.0),
+                        padding: const EdgeInsets.only(top: 417.0),
                         child: const Divider(
                           thickness: 1,
                           color: Colors.black38,
@@ -183,11 +183,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _buildAnimatedSocialIcon(FontAwesomeIcons.instagram),
+                            _buildSocialIcon(FontAwesomeIcons.instagram),
                             const SizedBox(width: 20),
-                            _buildAnimatedSocialIcon(FontAwesomeIcons.facebook),
+                            _buildSocialIcon(FontAwesomeIcons.facebook),
                             const SizedBox(width: 20),
-                            _buildAnimatedSocialIcon(FontAwesomeIcons.twitter),
+                            _buildSocialIcon(FontAwesomeIcons.twitter),
                           ],
                         ),
                       ),
@@ -201,7 +201,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildAnimatedButton(String text, {String? imagePath}) {
+  // Method with animation for the button texts
+  Widget _buildButtonWithAnimation(String text, {String? imagePath}) {
     return SizedBox(
       width: 320,
       height: 100,
@@ -211,9 +212,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             decoration: BoxDecoration(
               image: imagePath != null
                   ? DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.cover,
-              )
+                      image: AssetImage(imagePath),
+                      fit: BoxFit.cover,
+                    )
                   : null,
               borderRadius: BorderRadius.circular(12),
             ),
@@ -223,15 +224,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
           ),
           Center(
-            child: AnimatedBuilder(
-              animation: _textAnimation,
-              builder: (context, child) {
-                return Transform.translate(
-                  offset: Offset(0, -_textAnimation.value),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) {
+                    return Transform.translate(
+                      offset: Offset(0, _textAnimation.value),
+                      child: Text(
                         text,
                         style: const TextStyle(
                           color: Colors.white,
@@ -239,12 +240,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 10),
-                      const Icon(Icons.arrow_forward, color: Colors.white, size: 26),
-                    ],
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+                const SizedBox(width: 10),
+                const Icon(Icons.arrow_forward, color: Colors.white, size: 26),
+              ],
             ),
           ),
         ],
@@ -254,24 +255,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Widget _buildBottomMenu() {
     return Container(
-      color: const Color(0xFFE8C3BA),
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      color: const Color(0xFFE8C3BA), // Changed to the new color
+      padding: const EdgeInsets.symmetric(vertical: 8),  // Reduced vertical padding
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildBottomIcon(Icons.home, "Home"),
-          _buildBottomIcon(Icons.people, "Community"),
-          _buildBottomIcon(Icons.camera_alt, "Camera"),
-          _buildBottomIcon(Icons.chat_bubble, "Chat"),
-          _buildBottomIcon(Icons.person, "Profile"),
+          _buildBottomIcon(Icons.home, "Home", isSelected: _selectedBottomMenu == "Home"),
+          _buildBottomIcon(Icons.people, "Community", isSelected: _selectedBottomMenu == "Community"),
+          _buildBottomIcon(Icons.camera_alt, "Camera", isSelected: _selectedBottomMenu == "Camera"),
+          _buildBottomIcon(Icons.chat_bubble, "Chat", isSelected: _selectedBottomMenu == "Chat"),
+          _buildBottomIcon(Icons.person, "Profile", isSelected: _selectedBottomMenu == "Profile"),
         ],
       ),
     );
   }
 
-  Widget _buildBottomIcon(IconData icon, String label) {
-    bool isSelected = _selectedBottomMenu == label;
-
+  Widget _buildBottomIcon(IconData icon, String label, {required bool isSelected}) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -283,30 +282,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: isSelected ? Colors.white : Color(0xFFE8C3BA),
+              color: isSelected ? Colors.white : const Color(0xFFE8C3BA),
               borderRadius: BorderRadius.circular(12),
               boxShadow: isSelected
                   ? [
-                BoxShadow(
-                  color: Colors.black26,
-                  offset: Offset(0, 4),
-                  blurRadius: 6,
-                )
-              ]
+                      BoxShadow(
+                        color: Colors.black26,
+                        offset: Offset(0, 4),
+                        blurRadius: 6,
+                      )
+                    ]
                   : [],
             ),
             child: Icon(
               icon,
               size: 30,
-              color: isSelected ? Color(0xFFE8C3BA) : Colors.white,
+              color: isSelected ? const Color(0xFFE8C3BA) : Colors.white,
             ),
           ),
           const SizedBox(height: 5),
           Text(
             label,
             style: TextStyle(
-              color: isSelected ? Color(0xFFE8C3BA) : Colors.white,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              color: isSelected ? const Color(0xFFE8C3BA) : Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,  // Increased font size for better visibility
             ),
           ),
         ],
@@ -318,38 +318,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
       child: GestureDetector(
-        onTap: () {
-          setState(() {
-            _selectedMenuItem = text;
-          });
-        },
+        onTap: () {},
         child: Text(
           text,
-          style: TextStyle(
-            fontSize: 18,
-            color: _selectedMenuItem == text ? const Color(0xFFE8C3BA) : Colors.black38,
-          ),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black38),
         ),
       ),
     );
   }
 
-  Widget _buildAnimatedSocialIcon(IconData icon) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return Transform.translate(
-          offset: Offset(0, -_textAnimation.value),
-          child: IconButton(
-            icon: Icon(
-              icon,
-              size: 40,
-              color: _textAnimation.value > 5 ? const Color(0xFFE8C3BA) : Colors.black38,
-            ),
-            onPressed: () {},
-          ),
-        );
-      },
+  Widget _buildSocialIcon(IconData icon) {
+    return Icon(
+      icon,
+      size: 40,
+      color: Colors.black38,
     );
   }
 }

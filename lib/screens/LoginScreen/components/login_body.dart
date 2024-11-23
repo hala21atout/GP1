@@ -31,7 +31,7 @@ class _LoginBodyState extends State<LoginBody> {
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w400,
-                color: Color.fromRGBO(236, 172, 164, 1),
+                color: const Color(0xFFE8C3BA),
               ),
               textAlign: TextAlign.center,
             ),
@@ -96,7 +96,7 @@ class _LoginBodyState extends State<LoginBody> {
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
-                  backgroundColor: Color.fromRGBO(236, 172, 164, 1),
+                  backgroundColor: const Color(0xFFE8C3BA),
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () {
@@ -141,7 +141,7 @@ class _LoginBodyState extends State<LoginBody> {
                     TextSpan(
                       text: 'Sign Up',
                       style: TextStyle(
-                        color: Color.fromRGBO(236, 172, 164, 1),
+                        color: const Color(0xFFE8C3BA),
                       ),
                     ),
                   ],

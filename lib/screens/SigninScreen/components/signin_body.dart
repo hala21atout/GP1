@@ -23,7 +23,7 @@ class _SigninBodyState extends State<SigninBody> {
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w400,
-                color: Color.fromRGBO(236, 172, 164, 1),
+                color:const Color(0xFFE8C3BA),
               ),
               textAlign: TextAlign.center,
             ),
@@ -196,7 +196,7 @@ class _SigninBodyState extends State<SigninBody> {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
-                      backgroundColor: Color.fromRGBO(236, 172, 164, 1),
+                      backgroundColor:const Color(0xFFE8C3BA),
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () {
@@ -226,7 +226,7 @@ class _SigninBodyState extends State<SigninBody> {
                         TextSpan(
                           text: 'Log in',
                           style: TextStyle(
-                            color: Color.fromRGBO(236, 172, 164, 1),
+                            color:const Color(0xFFE8C3BA),
                           ),
                         ),
                       ],
