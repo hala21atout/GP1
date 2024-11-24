@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gp1/screens/LoginScreen/login.dart';
-import 'package:gp1/screens/SigninScreen/signin.dart';
 import 'package:gp1/welcome_page.dart';
+import 'package:gp1/screens/LoginScreen/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,3 +21,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
