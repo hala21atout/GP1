@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gp1/screens/LoginScreen/login.dart';
+import 'package:gp1/screens/SigninScreen/signin.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -43,7 +45,7 @@ class WelcomePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home Page')),
+                    MaterialPageRoute(builder: (context) =>  Login()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -73,7 +75,7 @@ class WelcomePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home Page')),
+                    MaterialPageRoute(builder: (context) => Signin()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

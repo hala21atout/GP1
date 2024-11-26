@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gp1/screens/LoginScreen/login.dart';
 
 class SigninBody extends StatefulWidget {
   @override
@@ -23,7 +24,7 @@ class _SigninBodyState extends State<SigninBody> {
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w400,
-                color:const Color(0xFFE8C3BA),
+                color: const Color(0xFFE8C3BA),
               ),
               textAlign: TextAlign.center,
             ),
@@ -196,7 +197,7 @@ class _SigninBodyState extends State<SigninBody> {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
-                      backgroundColor:const Color(0xFFE8C3BA),
+                      backgroundColor: const Color(0xFFE8C3BA),
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () {
@@ -213,7 +214,10 @@ class _SigninBodyState extends State<SigninBody> {
                 SizedBox(height: 20),
                 TextButton(
                   onPressed: () {
-                    // Handle login button press
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
                   },
                   child: RichText(
                     text: TextSpan(
@@ -226,7 +230,7 @@ class _SigninBodyState extends State<SigninBody> {
                         TextSpan(
                           text: 'Log in',
                           style: TextStyle(
-                            color:const Color(0xFFE8C3BA),
+                            color: const Color(0xFFE8C3BA),
                           ),
                         ),
                       ],

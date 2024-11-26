@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gp1/screens/SigninScreen/signin.dart';
 
 class LoginBody extends StatefulWidget {
   @override
@@ -129,7 +130,10 @@ class _LoginBodyState extends State<LoginBody> {
             // Sign Up Button with custom color for 'Sign Up'
             TextButton(
               onPressed: () {
-                // Handle sign up button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Signin()),
+                );
               },
               child: Text.rich(
                 TextSpan(
