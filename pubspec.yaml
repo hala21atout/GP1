@@ -22,8 +22,5 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/logo1.png  # Make sure this path is correct.
-    - assets/makeup.jpg
-    - assets/skincare.jpg
-    - assets/doctors.jpg
+    - assets/
   uses-material-design: true

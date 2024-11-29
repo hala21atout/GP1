@@ -7,149 +7,145 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> {
-  // متغير لحفظ حالة إخفاء النص
+  final _formKey = GlobalKey<FormState>(); // مفتاح النموذج
   bool _isPasswordHidden = true;
+
+  // متغيرات لتخزين المدخلات
+  //String? _email, _password;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white, // تعيين خلفية بيضاء
+      color: Colors.white,
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // "Welcome Back" Text
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Welcome Back',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 5),
-            Text(
+            const SizedBox(height: 5),
+            const Text(
               'Hi, good to see you again',
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w400,
-                color: const Color(0xFFE8C3BA),
-              ),
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400, color: Color(0xFFE8C3BA)),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 10), // Space between text and logo
+            const SizedBox(height: 10),
 
-            // Display Logo Image
-            Image.asset(
-              'assets/logo1.png',
-              width: 250, // تعديل العرض
-              height: 250, // تعديل الارتفاع
-            ),
-            SizedBox(height: 10), // Space after logo
+            Image.asset('assets/logo1.png', width: 250, height: 250),
+            const SizedBox(height: 10),
 
-            // Email Field
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60.0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-
-            // Password Field
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60.0),
-              child: TextFormField(
-                obscureText: _isPasswordHidden, // استخدام حالة الإخفاء
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isPasswordHidden
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+            // Form widget
+            Form(
+              key: _formKey, // تعيين مفتاح النموذج
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        //_email = value;
+                      },
                     ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                    child: TextFormField(
+                      obscureText: _isPasswordHidden,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(_isPasswordHidden ? Icons.visibility : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordHidden = !_isPasswordHidden;
+                            });
+                          },
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                       // _password = value;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                        textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        backgroundColor: const Color(0xFFE8C3BA),
+                        foregroundColor: Colors.white,
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          // إذا كان النموذج صالحًا، حفظ المدخلات
+                          _formKey.currentState?.save();
+                          // منطق تسجيل الدخول هنا (على سبيل المثال إرسال طلب للخادم)
+                        } else {
+                          // إذا لم يكن النموذج صالحًا، عرض رسالة (اختياري)
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Please fill out all fields')),
+                          );
+                        }
+                      },
+                      child: const Text('Login', style: TextStyle(color: Colors.white)),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+
+                  TextButton(
                     onPressed: () {
-                      setState(() {
-                        _isPasswordHidden = !_isPasswordHidden; // تبديل الحالة
-                      });
+                      // معالجة الضغط على زر "نسيت كلمة المرور"
                     },
+                    child: const Text('Forgot Password?', style: TextStyle(color: Colors.black)),
                   ),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
+                  const SizedBox(height: 10),
 
-            // Login Button with increased size
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  backgroundColor: const Color(0xFFE8C3BA),
-                  foregroundColor: Colors.white,
-                ),
-                onPressed: () {
-                  // Handle login button press
-                },
-                child: Text(
-                  'Login',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-
-            // Forgot Password Button (Color changed to black)
-            TextButton(
-              onPressed: () {
-                // Handle forgot password button press
-              },
-              child: Text(
-                'Forgot Password?',
-                style: TextStyle(
-                  color: Colors.black, // لون النص الأسود
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-
-            // Sign Up Button with custom color for 'Sign Up'
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Signin()),
-                );
-              },
-              child: Text.rich(
-                TextSpan(
-                  text: 'Don\'t have an account? ',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: 'Sign Up',
-                      style: TextStyle(
-                        color: const Color(0xFFE8C3BA),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Signin()),
+                      );
+                    },
+                    child: const Text.rich(
+                      TextSpan(
+                        text: 'Don\'t have an account? ',
+                        style: TextStyle(color: Colors.black),
+                        children: [
+                          TextSpan(text: 'Sign Up', style: TextStyle(color: Color(0xFFE8C3BA))),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

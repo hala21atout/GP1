@@ -1,60 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'home_page.dart'; // تأكد من أنك قد أضفت هذه الصفحة في مشروعك
 import 'CustomerCommunity.dart'; // إضافة الاستيراد لصفحة الكومينتي
-import 'CustomerProfile.dart'; // إضافة الاستيراد لصفحة الكومينتي
-import 'CustomerChat.dart'; // إضافة الاستيراد لصفحة الكومينتي
+import 'CustomerProfile.dart';
 import 'WhatIsDrGlowyPage.dart';
 import 'PrivacyInfoPage.dart';
 import 'PaymentInformationPage.dart';
 import 'FeedbackRatingPage.dart';
 
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class CustomerChat extends StatefulWidget {
+  const CustomerChat({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _HomePageState createState() => _HomePageState();
+  _CustomerChatState createState() => _CustomerChatState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _CustomerChatState extends State<CustomerChat> with TickerProviderStateMixin {
   bool _isMenuVisible = false;
   int _selectedIconIndex = -1; // -1 means no icon is selected
-  late AnimationController _controller;
-  late Animation<double> _textAnimation;
-  String _selectedBottomMenu = "Home"; // Default selected menu item
+  String _selectedBottomMenu = "Chat"; // Default selected menu item is "Chat"
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    )..repeat(reverse: true);
-
-    _textAnimation = Tween<double>(begin: 0, end: 10).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+  // Toggle the side menu visibility
   void _toggleMenu() {
     setState(() {
       _isMenuVisible = !_isMenuVisible;
     });
   }
 
+  // Handle icon taps in the AppBar
   void _handleIconTap(int iconIndex) {
     setState(() {
-      if (_selectedIconIndex == iconIndex) {
-        _selectedIconIndex = -1; // Reset if the same icon is tapped again
-      } else {
-        _selectedIconIndex = iconIndex; // Select the tapped icon
+      _selectedIconIndex = _selectedIconIndex == iconIndex ? -1 : iconIndex;
+    });
+  }
+
+  // Select a bottom menu item
+  void _selectBottomMenu(String menuItem) {
+    setState(() {
+      _selectedBottomMenu = menuItem;
+      // Navigate to "Home" page when "Home" is selected
+      if (menuItem == "Home") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()), // تأكد من أن HomePage موجودة
+        );
+      }
+      // Navigate to "Community" page when "Community" is selected
+      if (menuItem == "Community") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CustomerCommunity()), // تأكد من أن CustomerCommunity موجودة
+        );
+      }
+      // Navigate to "Profile" page when "Profile" is selected
+      if (menuItem == "Profile") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CustomerProfile()), // تأكد من أن CustomerProfile موجودة
+        );
       }
     });
   }
@@ -63,25 +66,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize:
-            const Size.fromHeight(70), // Increase the height of the AppBar
+        preferredSize: const Size.fromHeight(70), // Set AppBar height
         child: AppBar(
           backgroundColor: const Color(0xFFE8C3BA),
           elevation: 0,
-          automaticallyImplyLeading:
-              false, // Remove the default leading behavior
+          automaticallyImplyLeading: false, // Remove default leading icon
           flexibleSpace: Padding(
-            padding: const EdgeInsets.only(
-                top: 30.0, left: 5.0), // Adjust the padding
+            padding: const EdgeInsets.only(top: 30.0, left: 5.0), // Adjust logo padding
             child: Align(
-              alignment: Alignment.topLeft, // Position it to the left
+              alignment: Alignment.topLeft,
               child: SizedBox(
-                width: 100, // Set the exact width for the logo
-                height: 100, // Set the exact height for the logo
+                width: 100, // Logo width
+                height: 100, // Logo height
                 child: Image.asset(
                   'assets/logo1.png',
-                  fit: BoxFit
-                      .contain, // Ensure the image scales without stretching
+                  fit: BoxFit.contain, // Ensure the logo scales properly
                 ),
               ),
             ),
@@ -89,14 +88,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           actions: [
             IconButton(
               icon: Icon(
-                // ignore: deprecated_member_use
                 FontAwesomeIcons.shoppingCart,
                 size: 28,
                 color: _selectedIconIndex == 0 ? Colors.white : Colors.black38,
               ),
-              onPressed: () {
-                _handleIconTap(0);
-              },
+              onPressed: () => _handleIconTap(0),
               padding: const EdgeInsets.only(top: 20.0),
             ),
             IconButton(
@@ -105,9 +101,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 size: 30,
                 color: _selectedIconIndex == 1 ? Colors.white : Colors.black38,
               ),
-              onPressed: () {
-                _handleIconTap(1);
-              },
+              onPressed: () => _handleIconTap(1),
               padding: const EdgeInsets.only(top: 20.0),
             ),
             IconButton(
@@ -127,9 +121,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
       body: GestureDetector(
         onTap: () {
-          // Reset icons and menu state when clicking in the middle
           setState(() {
-            _selectedIconIndex = -1;
+            _selectedIconIndex = -1; // Reset icons when tapping outside
             if (_isMenuVisible) {
               _toggleMenu();
             }
@@ -140,22 +133,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Container(
               color: Colors.white,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 125),
-                  _buildButtonWithAnimation("Makeup",
-                      imagePath: "assets/makeup.jpg"),
-                  const SizedBox(height: 50),
-                  _buildButtonWithAnimation("Skin Care",
-                      imagePath: "assets/skincare.jpg"),
-                  const SizedBox(height: 50),
-                  _buildButtonWithAnimation("Doctors",
-                      imagePath: "assets/doctors.jpg"),
-                  Expanded(child: Container()),
-                  _buildBottomMenu(),
+                  Expanded(child: Container()), // Empty space in the center
+                  _buildBottomMenu(), // Bottom navigation menu
                 ],
               ),
             ),
+            // Side menu visibility check
             if (_isMenuVisible)
               Align(
                 alignment: Alignment.topRight,
@@ -166,9 +150,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                          height:
-                              30), // Reduced the height here to move "Menu" upwards
+                      const SizedBox(height: 30),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
@@ -197,11 +179,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _buildSocialIcon(FontAwesomeIcons.instagram),
+                            _buildSocialIcon(FontAwesomeIcons.instagram, 'https://www.instagram.com/yourprofile'),
                             const SizedBox(width: 20),
-                            _buildSocialIcon(FontAwesomeIcons.facebook),
+                            _buildSocialIcon(FontAwesomeIcons.facebook, 'https://www.facebook.com/yourprofile'), // رابط الفيسبوك
                             const SizedBox(width: 20),
-                            _buildSocialIcon(FontAwesomeIcons.twitter),
+                            _buildSocialIcon(FontAwesomeIcons.twitter, 'https://www.twitter.com/yourprofile'),
                           ],
                         ),
                       ),
@@ -215,63 +197,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  // Method with animation for the button texts
-  Widget _buildButtonWithAnimation(String text, {String? imagePath}) {
-    return SizedBox(
-      width: 320,
-      height: 100,
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: imagePath != null
-                  ? DecorationImage(
-                      image: AssetImage(imagePath),
-                      fit: BoxFit.cover,
-                    )
-                  : null,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            foregroundDecoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AnimatedBuilder(
-                  animation: _controller,
-                  builder: (context, child) {
-                    return Transform.translate(
-                      offset: Offset(0, _textAnimation.value),
-                      child: Text(
-                        text,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(width: 10),
-                const Icon(Icons.arrow_forward, color: Colors.white, size: 26),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
+  // Build the bottom navigation menu
   Widget _buildBottomMenu() {
     return Container(
-      color: const Color(0xFFE8C3BA), // Changed to the new color
-      padding:
-          const EdgeInsets.symmetric(vertical: 8), // Reduced vertical padding
+      color: const Color(0xFFE8C3BA),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -290,34 +220,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
+  // Create a single bottom menu item with icon and label
   Widget _buildBottomIcon(IconData icon, String label,
       {required bool isSelected}) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedBottomMenu = label;
-          if (_selectedBottomMenu == "Community") {
-            // الانتقال إلى صفحة الكومينتي عند الضغط على زر "Community"
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const CustomerCommunity()),
-            );
-          } else if (_selectedBottomMenu == "Chat") {
-            // الانتقال إلى صفحة الشات عند الضغط على زر "Chat"
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CustomerChat()),
-            );
-          } else if (_selectedBottomMenu == "Profile") {
-            // الانتقال إلى صفحة البروفايل عند الضغط على زر "Profile"
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CustomerProfile()),
-            );
-          }
-        });
-      },
+      onTap: () => _selectBottomMenu(label),
       child: Column(
         children: [
           Container(
@@ -347,7 +254,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             style: TextStyle(
               color: isSelected ? const Color(0xFFE8C3BA) : Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: 16, // Increased font size for better visibility
+              fontSize: 16,
             ),
           ),
         ],
@@ -365,8 +272,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      const WhatIsDrGlowyPage()), // تأكد من تعريف الصفحة
+                  builder: (context) => const WhatIsDrGlowyPage()), // تأكد من تعريف الصفحة
             );
           }
 
@@ -374,8 +280,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      const PrivacyInfoPage()), // تأكد من تعريف الصفحة
+                  builder: (context) => const PrivacyInfoPage()), // تأكد من تعريف الصفحة
             );
           }
 
@@ -383,8 +288,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      const PaymentInformationPage()), // تأكد من تعريف الصفحة
+                  builder: (context) => const PaymentInformationPage()), // تأكد من تعريف الصفحة
             );
           }
 
@@ -392,25 +296,32 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      const FeedbackRatingPage()), // تأكد من تعريف الصفحة
+                  builder: (context) => const FeedbackRatingPage()), // تأكد من تعريف الصفحة
             );
           }
         },
         child: Text(
           text,
           style: const TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black38),
+            fontSize: 18,
+            color: Colors.black38,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildSocialIcon(IconData icon) {
-    return Icon(
-      icon,
-      size: 40,
-      color: Colors.black38,
+  // Create social media icon in the side menu
+  Widget _buildSocialIcon(IconData icon, String url) {
+    return IconButton(
+      icon: Icon(
+        icon,
+        size: 40,
+        color: Colors.black38,
+      ), onPressed: () {  },
     );
   }
+
+
 }
