@@ -239,15 +239,16 @@ class _PaymentInformationPageState extends State<PaymentInformationPage> {
                   },
                   // ignore: sort_child_properties_last
                   child: const Text(
-                    'Save Payment Info',
+                    'Confirm and buy',
                     style: TextStyle(
+                        // fontWeight: FontWeight.bold,
                         color: Colors.white,
-                        fontSize: 19), // تغيير لون الكتابة إلى الأبيض
+                        fontSize: 21), // تغيير لون الكتابة إلى الأبيض
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 28), // تقليل البادينج
-                    minimumSize: const Size(240, 65), // تحديد عرض الزر
+                        vertical: 14, horizontal: 26), // تقليل البادينج
+                    minimumSize: const Size(230, 65), // تحديد عرض الزر
                     backgroundColor: const Color(0xFFE8C3BA),
                   ),
                 ),

@@ -8,8 +8,8 @@ class Login extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white, // جعل خلفية شريط التطبيق بيضاء
         elevation: 0, // إزالة الظل لجعلها متناسقة مع الخلفية
-        iconTheme: IconThemeData(color: Colors.black), // لون الأيقونات
-        titleTextStyle: TextStyle(
+        iconTheme: const IconThemeData(color: Colors.black), // لون الأيقونات
+        titleTextStyle: const TextStyle(
           color: Colors.black, // لون النص
           fontSize: 20,
           fontWeight: FontWeight.bold,

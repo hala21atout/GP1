@@ -7,12 +7,12 @@ class Signin extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        title: PreferredSize(
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: const PreferredSize(
           preferredSize: Size.fromHeight(50), 
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 22),
+              padding: EdgeInsets.only(top: 22),
               child: Text(
                 'Sign up',
                 style: TextStyle(

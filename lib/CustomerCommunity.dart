@@ -8,6 +8,7 @@ import 'WhatIsDrGlowyPage.dart';
 import 'PrivacyInfoPage.dart';
 import 'PaymentInformationPage.dart';
 import 'FeedbackRatingPage.dart';
+import 'screens/LoginScreen/login.dart';
 
 class CustomerCommunity extends StatefulWidget {
   const CustomerCommunity({super.key});
@@ -28,18 +29,28 @@ class _CustomerCommunityState extends State<CustomerCommunity>
   final List<bool> _likedPosts = []; // List to store like states for each post
   final List<int> _commentCounts = []; // قائمة لتخزين عدد التعليقات لكل منشور
   final List<List<String>> _comments = []; // قائمة تحتوي على تعليقات لكل بوست
+  bool _isNotificationsVisible = false; // لتحديد ظهور خانة الإشعارات
 
-  // Toggle the side menu visibility
   void _toggleMenu() {
     setState(() {
       _isMenuVisible = !_isMenuVisible;
     });
   }
 
-  // Handle icon taps in the AppBar
+  void _toggleNotifications() {
+    setState(() {
+      _isNotificationsVisible = !_isNotificationsVisible;
+    });
+  }
+
   void _handleIconTap(int iconIndex) {
     setState(() {
-      _selectedIconIndex = _selectedIconIndex == iconIndex ? -1 : iconIndex;
+      if (iconIndex == 1) {
+        // إذا كانت أيقونة الإشعارات
+        _toggleNotifications();
+      } else {
+        _selectedIconIndex = _selectedIconIndex == iconIndex ? -1 : iconIndex;
+      }
     });
   }
 
@@ -96,16 +107,7 @@ class _CustomerCommunityState extends State<CustomerCommunity>
             ),
           ),
           actions: [
-            IconButton(
-              icon: Icon(
-                // ignore: deprecated_member_use
-                FontAwesomeIcons.shoppingCart,
-                size: 28,
-                color: _selectedIconIndex == 0 ? Colors.white : Colors.black38,
-              ),
-              onPressed: () => _handleIconTap(0),
-              padding: const EdgeInsets.only(top: 20.0),
-            ),
+            
             IconButton(
               icon: Icon(
                 FontAwesomeIcons.bell,
@@ -133,9 +135,12 @@ class _CustomerCommunityState extends State<CustomerCommunity>
       body: GestureDetector(
         onTap: () {
           setState(() {
-            _selectedIconIndex = -1; // Reset icons when tapping outside
+            _selectedIconIndex = -1;
             if (_isMenuVisible) {
               _toggleMenu();
+            }
+            if (_isNotificationsVisible) {
+              _toggleNotifications();
             }
           });
         },
@@ -313,6 +318,11 @@ class _CustomerCommunityState extends State<CustomerCommunity>
               ),
             ),
             // Side menu visibility check
+            if (_isNotificationsVisible)
+              Align(
+                alignment: Alignment.topRight,
+                child: _buildNotificationsPanel(),
+              ),
             if (_isMenuVisible)
               Align(
                 alignment: Alignment.topRight,
@@ -323,7 +333,9 @@ class _CustomerCommunityState extends State<CustomerCommunity>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 30),
+                      const SizedBox(
+                          height:
+                              30), // Reduced the height here to move "Menu" upwards
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
@@ -339,8 +351,10 @@ class _CustomerCommunityState extends State<CustomerCommunity>
                       _buildMenuItem("Payment Information"),
                       _buildMenuItem("Privacy Info"),
                       _buildMenuItem("Rating & Feedback"),
+                      _buildMenuItem("Log Out"),
+
                       const Padding(
-                        padding: EdgeInsets.only(top: 443.0),
+                        padding: EdgeInsets.only(top: 377.0),
                         child: Divider(
                           thickness: 1,
                           color: Colors.black38,
@@ -522,6 +536,15 @@ class _CustomerCommunityState extends State<CustomerCommunity>
                       const FeedbackRatingPage()), // تأكد من تعريف الصفحة
             );
           }
+
+          if (text == "Log Out") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                       Login()), // تأكد من تعريف الصفحة
+            );
+          }
         },
         child: Text(
           text,
@@ -579,6 +602,75 @@ class _CustomerCommunityState extends State<CustomerCommunity>
         const SnackBar(content: Text('Please write something before posting!')),
       );
     }
+  }
+
+  Widget _buildNotificationsPanel() {
+    // قائمة ديناميكية للإشعارات
+    final List<Map<String, String>> notifications = [
+      {
+        "type": "like",
+        "message": "John liked your post.",
+      },
+      {
+        "type": "comment",
+        "message": "Emily commented on your post: 'Nice one!'",
+      },
+  
+      {
+        "type": "chat",
+        "message": "You have a new chat from Dr.laila.",
+      },
+    ];
+
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.7,
+      height: MediaQuery.of(context).size.height * 0.6,
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 239, 239, 239), // لون أغمق قليلاً
+        border: Border.all(
+          color: Colors.black38, // لون الحافة
+          width: 1, // سماكة الحافة
+        ),
+        borderRadius: BorderRadius.circular(8), // زوايا دائرية
+      ),
+      child: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          const Text(
+            "Notifications",
+            style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+                color: Colors.black38),
+          ),
+          const SizedBox(height: 10),
+          // عرض الإشعارات الديناميكية
+          ...notifications.map((notification) {
+            IconData icon;
+            switch (notification["type"]) {
+              case "like":
+                icon = Icons.thumb_up;
+                break;
+              case "comment":
+                icon = Icons.comment;
+                break;
+              case "reminder":
+                icon = Icons.calendar_today;
+                break;
+              case "chat":
+                icon = Icons.mail;
+                break;
+              default:
+                icon = Icons.notification_important;
+            }
+            return ListTile(
+              leading: Icon(icon, color: Colors.black38),
+              title: Text(notification["message"] ?? ""),
+            );
+          }).toList(),
+        ],
+      ),
+    );
   }
 
   // Social media icon in the side menu
