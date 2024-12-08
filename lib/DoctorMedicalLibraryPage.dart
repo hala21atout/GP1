@@ -26,7 +26,7 @@ class _doctorMedicalLibraryState extends State<DoctorMedicalLibraryPage> {
     appBar: AppBar(
         title: const Text(
           "Medical Library",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.black38,),
         ),
         backgroundColor: const Color(0xFFE8C3BA), // لون مريح وأنيق
         toolbarHeight: 70,

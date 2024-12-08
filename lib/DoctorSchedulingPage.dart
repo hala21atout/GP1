@@ -29,7 +29,7 @@ class _DoctorSchedulingPageState extends State<DoctorSchedulingPage> {
       appBar: AppBar(
         title: const Text(
           "Doctor's Schedule",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.black38,),
         ),
         backgroundColor: const Color(0xFFE8C3BA),
         toolbarHeight: 70,
