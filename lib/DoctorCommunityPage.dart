@@ -1,24 +1,23 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'home_page.dart'; // تأكد من أنك قد أضفت هذه الصفحة في مشروعك
-import 'CustomerProfile.dart'; // إضافة الاستيراد لصفحة البروفايل
-import 'CustomerChat.dart'; // إضافة الاستيراد لصفحة الشات
+import 'DoctorsHomePage.dart'; // تأكد من أنك قد أضفت هذه الصفحة في مشروعك
+import 'DoctorProfilePage.dart';
+import 'DoctorChatPage.dart'; // إضافة الاستيراد لصفحة الشات
 import 'WhatIsDrGlowyPage.dart';
 import 'PrivacyInfoPage.dart';
-import 'PaymentInformationPage.dart';
 import 'FeedbackRatingPage.dart';
 import 'screens/LoginScreen/login.dart';
 
-class CustomerCommunity extends StatefulWidget {
-  const CustomerCommunity({super.key});
+class DoctorCommunityPage extends StatefulWidget {
+  const DoctorCommunityPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
   _CustomerCommunityState createState() => _CustomerCommunityState();
 }
 
-class _CustomerCommunityState extends State<CustomerCommunity>
+class _CustomerCommunityState extends State<DoctorCommunityPage>
     with TickerProviderStateMixin {
   bool _isMenuVisible = false;
   int _selectedIconIndex = -1; // -1 means no icon is selected
@@ -64,19 +63,19 @@ class _CustomerCommunityState extends State<CustomerCommunity>
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  const HomePage()), // تأكد من أن HomePage موجودة
+                  const DoctorsHomePage()), // تأكد من أن HomePage موجودة
         );
       } else if (menuItem == "Chat") {
         // الانتقال إلى صفحة الشات عند الضغط على زر "Chat"
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const CustomerChat()),
+          MaterialPageRoute(builder: (context) => const DoctorChatPage()),
         );
       } else if (menuItem == "Profile") {
         // الانتقال إلى صفحة البروفايل عند الضغط على زر "Profile"
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const CustomerProfile()),
+          MaterialPageRoute(builder: (context) => const DoctorProfilePage()),
         );
       }
     });
@@ -336,13 +335,12 @@ class _CustomerCommunityState extends State<CustomerCommunity>
                       ),
                       const SizedBox(height: 20),
                       _buildMenuItem("Dr. Glowy"),
-                      _buildMenuItem("Payment Information"),
                       _buildMenuItem("Privacy Info"),
                       _buildMenuItem("Rating & Feedback"),
                       _buildMenuItem("Log Out"),
 
                       const Padding(
-                        padding: EdgeInsets.only(top: 377.0),
+                        padding: EdgeInsets.only(top: 436.0),
                         child: Divider(
                           thickness: 1,
                           color: Colors.black38,
@@ -431,8 +429,6 @@ class _CustomerCommunityState extends State<CustomerCommunity>
               isSelected: _selectedBottomMenu == "Home"),
           _buildBottomIcon(Icons.people, "Community",
               isSelected: _selectedBottomMenu == "Community"),
-          _buildBottomIcon(Icons.camera_alt, "Camera",
-              isSelected: _selectedBottomMenu == "Camera"),
           _buildBottomIcon(Icons.chat_bubble, "Chat",
               isSelected: _selectedBottomMenu == "Chat"),
           _buildBottomIcon(Icons.person, "Profile",
@@ -504,15 +500,6 @@ class _CustomerCommunityState extends State<CustomerCommunity>
               MaterialPageRoute(
                   builder: (context) =>
                       const PrivacyInfoPage()), // تأكد من تعريف الصفحة
-            );
-          }
-
-          if (text == "Payment Information") {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      const PaymentInformationPage()), // تأكد من تعريف الصفحة
             );
           }
 

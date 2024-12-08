@@ -120,55 +120,117 @@ class _HomePageState extends State<DoctorsPage> with TickerProviderStateMixin {
             ),
           ),
           child: ListView(
-            children: doctor["workingHours"]
-                .map<Widget>((hour) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 12.0),
-                          title: Text(
-                            hour["time"] ?? "No time available",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color:
-                                  hour["isBooked"] ? Colors.grey : Colors.black,
-                            ),
+            children: [
+              const Text(
+                "Select a Day",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              Wrap(
+                spacing: 10,
+                children: [
+                  ...[
+                    "Saturday",
+                    "Sunday",
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday"
+                  ]
+                      .map(
+                        (day) => ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            _selectTime(context, doctor, day);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFE8C3BA),
                           ),
-                          trailing: hour["isBooked"]
-                              ? const Icon(
-                                  Icons.block,
-                                  color: Colors.red,
-                                  size: 30,
-                                )
-                              : const Icon(
-                                  Icons.check,
-                                  color: Colors.green,
-                                  size: 30,
-                                ),
-                          onTap: hour["isBooked"]
-                              ? null
-                              : () {
-                                  setState(() {
-                                    hour["isBooked"] = true;
-                                  });
-                                  Navigator.pop(context);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          'Appointment booked at ${hour["time"]}'),
-                                    ),
-                                  );
-                                },
+                          child: Text(day),
+                        ),
+                      )
+                      .toList(),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _selectTime(
+      BuildContext context, Map<String, dynamic> doctor, String selectedDay) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: ListView(
+            children: [
+              Text(
+                "Available Times for $selectedDay",
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              ...doctor["workingHours"].map<Widget>((hour) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Card(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 12.0),
+                      title: Text(
+                        hour["time"] ?? "No time available",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: hour["isBooked"] ? Colors.grey : Colors.black,
                         ),
                       ),
-                    ))
-                .toList(),
+                      trailing: hour["isBooked"]
+                          ? const Icon(
+                              Icons.block,
+                              color: Colors.red,
+                              size: 30,
+                            )
+                          : const Icon(
+                              Icons.check,
+                              color: Colors.green,
+                              size: 30,
+                            ),
+                      onTap: hour["isBooked"]
+                          ? null
+                          : () {
+                              setState(() {
+                                hour["isBooked"] = true;
+                              });
+                              Navigator.pop(context);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      'Appointment booked at ${hour["time"]} on $selectedDay'),
+                                ),
+                              );
+                            },
+                    ),
+                  ),
+                );
+              }).toList(),
+            ],
           ),
         );
       },

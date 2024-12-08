@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'screens/LoginScreen/login.dart';
 import 'screens/SigninScreen/signin.dart';
 import 'CustomerCommunity.dart';
@@ -11,6 +10,10 @@ import 'MakeupPage.dart';
 import 'ShoppingcartPage.dart';
 import 'DoctorsPage.dart';
 import 'DoctorsHomePage.dart';
+import 'DoctorProfilePage.dart';
+import 'DoctorMedicalLibraryPage.dart';
+import 'DoctorSchedulingPage.dart';
+import 'DoctorChatPage.dart';
 
 void main() {
   runApp(const MyApp());

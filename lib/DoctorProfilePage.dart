@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'home_page.dart'; // تأكد من أنك قد أضفت هذه الصفحة في مشروعك
-import 'CustomerCommunity.dart'; // إضافة الاستيراد لصفحة الكومينتي
-import 'CustomerChat.dart';
+import 'DoctorsHomePage.dart'; // تأكد من أنك قد أضفت هذه الصفحة في مشروعك
+import 'DoctorCommunityPage.dart'; // إضافة الاستيراد لصفحة الكومينتي
+import 'DoctorChatPage.dart';
 import 'WhatIsDrGlowyPage.dart';
 import 'PrivacyInfoPage.dart';
-import 'PaymentInformationPage.dart';
 import 'FeedbackRatingPage.dart';
 import 'screens/LoginScreen/login.dart';
 
-class CustomerProfile extends StatefulWidget {
-  const CustomerProfile({super.key});
+class DoctorProfilePage extends StatefulWidget {
+  const DoctorProfilePage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
   _CustomerProfileState createState() => _CustomerProfileState();
 }
 
-class _CustomerProfileState extends State<CustomerProfile>
+class _CustomerProfileState extends State<DoctorProfilePage>
     with TickerProviderStateMixin {
   bool _isMenuVisible = false;
   int _selectedIconIndex = -1; // -1 means no icon is selected
@@ -58,7 +57,7 @@ class _CustomerProfileState extends State<CustomerProfile>
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  const HomePage()), // تأكد من أن HomePage موجودة
+                  const DoctorsHomePage()), // تأكد من أن HomePage موجودة
         );
       }
       // Navigate to "Community" page when "Community" is selected
@@ -67,7 +66,7 @@ class _CustomerProfileState extends State<CustomerProfile>
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  const CustomerCommunity()), // Make sure CustomerCommunity is available
+                  const DoctorCommunityPage()), // Make sure CustomerCommunity is available
         );
       }
       // Navigate to "Chat" page when "Chat" is selected
@@ -76,7 +75,7 @@ class _CustomerProfileState extends State<CustomerProfile>
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  const CustomerChat()), // Make sure CustomerChat is available
+                  const DoctorChatPage()), // Make sure CustomerChat is available
         );
       }
     });
@@ -184,13 +183,12 @@ class _CustomerProfileState extends State<CustomerProfile>
                       ),
                       const SizedBox(height: 20),
                       _buildMenuItem("Dr. Glowy"),
-                      _buildMenuItem("Payment Information"),
                       _buildMenuItem("Privacy Info"),
                       _buildMenuItem("Rating & Feedback"),
                       _buildMenuItem("Log Out"),
 
                       const Padding(
-                        padding: EdgeInsets.only(top: 377.0),
+                        padding: EdgeInsets.only(top: 436.0),
                         child: Divider(
                           thickness: 1,
                           color: Colors.black38,
@@ -232,8 +230,6 @@ class _CustomerProfileState extends State<CustomerProfile>
               isSelected: _selectedBottomMenu == "Home"),
           _buildBottomIcon(Icons.people, "Community",
               isSelected: _selectedBottomMenu == "Community"),
-          _buildBottomIcon(Icons.camera_alt, "Camera",
-              isSelected: _selectedBottomMenu == "Camera"),
           _buildBottomIcon(Icons.chat_bubble, "Chat",
               isSelected: _selectedBottomMenu == "Chat"),
           _buildBottomIcon(Icons.person, "Profile",
@@ -306,15 +302,6 @@ class _CustomerProfileState extends State<CustomerProfile>
               MaterialPageRoute(
                   builder: (context) =>
                       const PrivacyInfoPage()), // تأكد من تعريف الصفحة
-            );
-          }
-
-          if (text == "Payment Information") {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      const PaymentInformationPage()), // تأكد من تعريف الصفحة
             );
           }
 
@@ -427,8 +414,9 @@ class _CustomerProfileState extends State<CustomerProfile>
     String email = "Halaatout123@Gmail.com";
     String address = "123 Main St, City, Country";
     String phoneNumber = "+123 456 7890";
-    String skinType = "Dry";
-    String allergies = "Peanuts, Dust";
+    String experienceYears = "10"; // Years of experience
+    String qualifications =
+        "PhD in Dermatology, MSc in Medical Science"; // Doctor's qualifications
 
     // Controllers for text fields
     TextEditingController nameController = TextEditingController(text: name);
@@ -437,10 +425,10 @@ class _CustomerProfileState extends State<CustomerProfile>
         TextEditingController(text: address);
     TextEditingController phoneController =
         TextEditingController(text: phoneNumber);
-    TextEditingController skinController =
-        TextEditingController(text: skinType);
-    TextEditingController allergiesController =
-        TextEditingController(text: allergies);
+    TextEditingController experienceController =
+        TextEditingController(text: experienceYears);
+    TextEditingController qualificationsController =
+        TextEditingController(text: qualifications);
 
     void showEditDialog() {
       showDialog(
@@ -448,46 +436,50 @@ class _CustomerProfileState extends State<CustomerProfile>
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text("Edit Profile"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: nameController,
-                  decoration: const InputDecoration(
-                    labelText: "Name",
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: nameController,
+                    decoration: const InputDecoration(
+                      labelText: "Name",
+                    ),
                   ),
-                ),
-                TextField(
-                  controller: emailController,
-                  decoration: const InputDecoration(
-                    labelText: "Email",
+                  TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                      labelText: "Email",
+                    ),
                   ),
-                ),
-                TextField(
-                  controller: addressController,
-                  decoration: const InputDecoration(
-                    labelText: "Address",
+                  TextField(
+                    controller: addressController,
+                    decoration: const InputDecoration(
+                      labelText: "Address",
+                    ),
                   ),
-                ),
-                TextField(
-                  controller: phoneController,
-                  decoration: const InputDecoration(
-                    labelText: "Phone Number",
+                  TextField(
+                    controller: phoneController,
+                    decoration: const InputDecoration(
+                      labelText: "Phone Number",
+                    ),
                   ),
-                ),
-                TextField(
-                  controller: skinController,
-                  decoration: const InputDecoration(
-                    labelText: "Skin Type",
+                  TextField(
+                    controller: experienceController,
+                    decoration: const InputDecoration(
+                      labelText: "Years of Experience",
+                    ),
+                    keyboardType:
+                        TextInputType.number, // Allows only numeric input
                   ),
-                ),
-                TextField(
-                  controller: allergiesController,
-                  decoration: const InputDecoration(
-                    labelText: "Allergies",
+                  TextField(
+                    controller: qualificationsController,
+                    decoration: const InputDecoration(
+                      labelText: "Qualifications",
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             actions: <Widget>[
               TextButton(
@@ -505,8 +497,8 @@ class _CustomerProfileState extends State<CustomerProfile>
                     email = emailController.text;
                     address = addressController.text;
                     phoneNumber = phoneController.text;
-                    skinType=skinController.text;
-                    allergies=allergiesController.text;
+                    experienceYears = experienceController.text;
+                    qualifications = qualificationsController.text;
                   });
                   Navigator.of(context).pop(); // Close the dialog after saving
                 },
@@ -525,15 +517,16 @@ class _CustomerProfileState extends State<CustomerProfile>
             .topCenter, // Align the image towards the top of the container
         child: Column(
           children: [
-
+            const SizedBox(height: 15),
             const CircleAvatar(
-              
-              radius: 125, // Set radius for the circular image
+              radius: 93, // Set radius for the circular image
               backgroundImage: AssetImage(
-                  'assets/user.jpg'), // Replace with the user's image
+                  'assets/userD.jpg'), // Replace with the user's image
               backgroundColor: Colors.transparent,
             ),
-            // Increased space between the profile picture and the name
+            const SizedBox(
+                height:
+                    17), // Increased space between the profile picture and the name
             Container(
               padding: const EdgeInsets.symmetric(
                   vertical: 12.0, horizontal: 20.0), // Increased padding
@@ -569,16 +562,13 @@ class _CustomerProfileState extends State<CustomerProfile>
                               FontWeight.w500, // Medium weight for the label
                         ),
                       ),
-                      Spacer(), // Pushes the Edit button to the right
+                      Spacer(),
                     ],
                   ),
-                  const SizedBox(
-                      height: 0), // Space between the label and the name
+                  const SizedBox(height: 5),
                   Row(
                     children: [
-                      const SizedBox(
-                          width:
-                              40), // Align name under the label with space from the icon
+                      const SizedBox(width: 40),
                       Text(
                         name, // Name text
                         style: const TextStyle(
@@ -589,7 +579,7 @@ class _CustomerProfileState extends State<CustomerProfile>
                       ),
                     ],
                   ),
-                  const SizedBox(height: 7),
+                  const SizedBox(height: 5),
 
                   // Email Section
                   const Row(
@@ -611,16 +601,13 @@ class _CustomerProfileState extends State<CustomerProfile>
                               FontWeight.w500, // Medium weight for the label
                         ),
                       ),
-                      Spacer(), // Pushes the Edit button to the right
+                      Spacer(),
                     ],
                   ),
-                  const SizedBox(
-                      height: 0), // Space between the label and the email
+                  const SizedBox(height: 5),
                   Row(
                     children: [
-                      const SizedBox(
-                          width:
-                              40), // Align email under the label with space from the icon
+                      const SizedBox(width: 40),
                       Text(
                         email, // Email text
                         style: const TextStyle(
@@ -631,7 +618,7 @@ class _CustomerProfileState extends State<CustomerProfile>
                       ),
                     ],
                   ),
-                  const SizedBox(height: 7),
+                  const SizedBox(height: 5),
 
                   // Address Section
                   const Row(
@@ -653,16 +640,13 @@ class _CustomerProfileState extends State<CustomerProfile>
                               FontWeight.w500, // Medium weight for the label
                         ),
                       ),
-                      Spacer(), // Pushes the Edit button to the right
+                      Spacer(),
                     ],
                   ),
-                  const SizedBox(
-                      height: 0), // Space between the label and the address
+                  const SizedBox(height: 5),
                   Row(
                     children: [
-                      const SizedBox(
-                          width:
-                              40), // Align address under the label with space from the icon
+                      const SizedBox(width: 40),
                       Text(
                         address, // Address text
                         style: const TextStyle(
@@ -673,7 +657,7 @@ class _CustomerProfileState extends State<CustomerProfile>
                       ),
                     ],
                   ),
-                  const SizedBox(height: 7),
+                  const SizedBox(height: 5),
 
                   // Phone Number Section
                   const Row(
@@ -695,17 +679,13 @@ class _CustomerProfileState extends State<CustomerProfile>
                               FontWeight.w500, // Medium weight for the label
                         ),
                       ),
-                      Spacer(), // Pushes the Edit button to the right
+                      Spacer(),
                     ],
                   ),
-                  const SizedBox(
-                      height:
-                          0), // Space between the label and the phone number
+                  const SizedBox(height: 5),
                   Row(
                     children: [
-                      const SizedBox(
-                          width:
-                              40), // Align phone number under the label with space from the icon
+                      const SizedBox(width: 40),
                       Text(
                         phoneNumber, // Phone number text
                         style: const TextStyle(
@@ -716,94 +696,82 @@ class _CustomerProfileState extends State<CustomerProfile>
                       ),
                     ],
                   ),
-                  const SizedBox(height: 7),
+                  const SizedBox(height: 5),
 
-                  // Skin Type Section
+                  // Experience Section
                   const Row(
                     children: [
                       Icon(
-                        Icons
-                            .face_outlined, // Skin type icon (البشرة) من Material Icons
+                        Icons.work_outline, // Work experience icon
                         size: 24, // Icon size
                         color: Colors.black54, // Icon color
                       ),
                       SizedBox(width: 15), // Space between icon and text
                       Text(
-                        'Skin Type', // Label text
+                        'Years of Experience', // Label text
                         style: TextStyle(
                           fontSize: 20, // Font size for the label
-                          color:
-                              Colors.black87, // Light gray color for the label
-                          fontWeight:
-                              FontWeight.w500, // Medium weight for the label
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Spacer(), // Pushes the Edit button to the right
+                      Spacer(),
                     ],
                   ),
-                  const SizedBox(
-                      height: 0), // Space between the label and the skin type
+                  const SizedBox(height: 5),
                   Row(
                     children: [
-                      const SizedBox(
-                          width:
-                              40), // Align skin type under the label with space from the icon
+                      const SizedBox(width: 40),
                       Text(
-                        skinType, // Skin type text
+                        "$experienceYears years",
                         style: const TextStyle(
-                          fontSize: 19, // Text size
+                          fontSize: 19,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black54, // Text color
+                          color: Colors.black54,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 7),
+                  const SizedBox(height: 5),
 
-                  // Allergies Section
+                  // Qualifications Section
                   const Row(
                     children: [
                       Icon(
-                        Icons
-                            .warning_amber_outlined, // Allergies icon (تحذير) من Material Icons
+                        Icons.school_outlined, // Qualifications icon
                         size: 24, // Icon size
                         color: Colors.black54, // Icon color
                       ),
                       SizedBox(width: 15), // Space between icon and text
                       Text(
-                        'Allergies', // Label text
+                        'Qualifications',
                         style: TextStyle(
-                          fontSize: 20, // Font size for the label
-                          color:
-                              Colors.black87, // Light gray color for the label
-                          fontWeight:
-                              FontWeight.w500, // Medium weight for the label
+                          fontSize: 20,
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Spacer(), // Pushes the Edit button to the right
+                      Spacer(),
                     ],
                   ),
-                  const SizedBox(
-                      height: 0), // Space between the label and the allergies
+                  const SizedBox(height: 5),
                   Row(
                     children: [
-                      const SizedBox(
-                          width:
-                              40), // Align allergies under the label with space from the icon
-                      Text(
-                        allergies, // Allergies text
-                        style: const TextStyle(
-                          fontSize: 19, // Text size
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black54, // Text color
+                      const SizedBox(width: 40),
+                      Expanded(
+                        child: Text(
+                          qualifications,
+                          style: const TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black54,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
-
-                  const SizedBox(height: 10),
-
                   // Edit Profile Button
                   Center(
                     // Center the button

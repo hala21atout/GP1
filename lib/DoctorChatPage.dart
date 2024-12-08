@@ -1,66 +1,29 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
-import 'CustomerCommunity.dart';
-import 'CustomerProfile.dart';
+import 'DoctorsHomePage.dart';
+import 'DoctorCommunityPage.dart';
+import 'DoctorProfilePage.dart';
 
-class CustomerChat extends StatefulWidget {
-  const CustomerChat({super.key});
+class DoctorChatPage extends StatefulWidget {
+  const DoctorChatPage({super.key});
 
   @override
-  _CustomerChatState createState() => _CustomerChatState();
+  _DoctorChatPageState createState() => _DoctorChatPageState();
 }
 
-class _CustomerChatState extends State<CustomerChat>
-    with TickerProviderStateMixin {
+class _DoctorChatPageState extends State<DoctorChatPage> {
   String _selectedBottomMenu = "Chat";
   String _searchQuery = ""; // قيمة البحث
   final List<Map<String, String>> _chatData = [
-    {
-      "name": "Dr. John Doe",
-      "message": "Hello, how can I help?",
-      "time": "2:30 PM"
-    },
-    {
-      "name": "Dr. Jane Smith",
-      "message": "Please review the report",
-      "time": "1:15 PM"
-    },
-    {
-      "name": "Sarah Johnson",
-      "message": "Hey! Are we still on for today?",
-      "time": "12:00 PM"
-    },
-    {
-      "name": "Michael Brown",
-      "message": "Can you share the notes?",
-      "time": "11:45 AM"
-    },
+    {"name": "Dr. John Doe", "message": "Hello, how can I help?", "time": "2:30 PM"},
+    {"name": "Dr. Jane Smith", "message": "Please review the report", "time": "1:15 PM"},
+    {"name": "Sarah Johnson", "message": "Hey! Are we still on for today?", "time": "12:00 PM"},
+    {"name": "Michael Brown", "message": "Can you share the notes?", "time": "11:45 AM"},
     {"name": "Dr. Emily Clark", "message": "Thank you!", "time": "Yesterday"},
-    {
-      "name": "James Lee",
-      "message": "Let’s catch up tomorrow.",
-      "time": "Yesterday"
-    },
-    {
-      "name": "Dr. Michael Lee",
-      "message": "Let's schedule a call",
-      "time": "Monday"
-    },
-    {
-      "name": "Sophia Martinez",
-      "message": "Looking forward to the meeting.",
-      "time": "Sunday"
-    },
-    {
-      "name": "Dr. Sarah Connor",
-      "message": "Follow-up required.",
-      "time": "Sunday"
-    },
-    {
-      "name": "Liam Miller",
-      "message": "Got your message. Thanks!",
-      "time": "Last Week"
-    },
+    {"name": "James Lee", "message": "Let’s catch up tomorrow.", "time": "Yesterday"},
+    {"name": "Dr. Michael Lee", "message": "Let's schedule a call", "time": "Monday"},
+    {"name": "Sophia Martinez", "message": "Looking forward to the meeting.", "time": "Sunday"},
+    {"name": "Dr. Sarah Connor", "message": "Follow-up required.", "time": "Sunday"},
+    {"name": "Liam Miller", "message": "Got your message. Thanks!", "time": "Last Week"},
     {"name": "Olivia Garcia", "message": "See you soon!", "time": "Last Week"},
   ];
 
@@ -70,19 +33,19 @@ class _CustomerChatState extends State<CustomerChat>
       if (menuItem == "Home") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
+          MaterialPageRoute(builder: (context) => const DoctorsHomePage()),
         );
       }
       if (menuItem == "Community") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const CustomerCommunity()),
+          MaterialPageRoute(builder: (context) => const DoctorCommunityPage()),
         );
       }
       if (menuItem == "Profile") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const CustomerProfile()),
+          MaterialPageRoute(builder: (context) => const DoctorProfilePage()),
         );
       }
     });
@@ -102,8 +65,7 @@ class _CustomerChatState extends State<CustomerChat>
         elevation: 0,
         title: const Text(
           'Chat',
-          style: TextStyle(
-              color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
       body: Column(
@@ -114,8 +76,7 @@ class _CustomerChatState extends State<CustomerChat>
               itemCount: filteredChats.length,
               itemBuilder: (context, index) {
                 final chat = filteredChats[index];
-                return _buildChatTile(
-                    chat["name"]!, chat["message"]!, chat["time"]!);
+                return _buildChatTile(chat["name"]!, chat["message"]!, chat["time"]!);
               },
             ),
           ),
@@ -181,6 +142,7 @@ class _CustomerChatState extends State<CustomerChat>
     );
   }
 
+
   Widget _buildBottomMenu() {
     return Container(
       color: const Color(0xFFE8C3BA),
@@ -192,8 +154,6 @@ class _CustomerChatState extends State<CustomerChat>
               isSelected: _selectedBottomMenu == "Home"),
           _buildBottomIcon(Icons.people, "Community",
               isSelected: _selectedBottomMenu == "Community"),
-          _buildBottomIcon(Icons.camera_alt, "Camera",
-              isSelected: _selectedBottomMenu == "Camera"),
           _buildBottomIcon(Icons.chat_bubble, "Chat",
               isSelected: _selectedBottomMenu == "Chat"),
           _buildBottomIcon(Icons.person, "Profile",
@@ -203,8 +163,7 @@ class _CustomerChatState extends State<CustomerChat>
     );
   }
 
-  Widget _buildBottomIcon(IconData icon, String label,
-      {required bool isSelected}) {
+  Widget _buildBottomIcon(IconData icon, String label, {required bool isSelected}) {
     return GestureDetector(
       onTap: () => _selectBottomMenu(label),
       child: Column(
@@ -217,9 +176,7 @@ class _CustomerChatState extends State<CustomerChat>
               boxShadow: isSelected
                   ? [
                       const BoxShadow(
-                          color: Colors.black26,
-                          offset: Offset(0, 4),
-                          blurRadius: 6)
+                          color: Colors.black26, offset: Offset(0, 4), blurRadius: 6)
                     ]
                   : [],
             ),

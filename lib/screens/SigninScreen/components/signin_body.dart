@@ -7,16 +7,22 @@ class SigninBody extends StatefulWidget {
 }
 
 class _SigninBodyState extends State<SigninBody> {
-  final _formKey = GlobalKey<FormState>(); // إضافة مفتاح النموذج للتحقق من الصحة
+  final _formKey = GlobalKey<FormState>();
   String _selectedRole = 'Company';
   String? _selectedSkinType;
-  final TextEditingController _contactDermatitisController = TextEditingController();
+  final TextEditingController _contactDermatitisController =
+      TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+
+  // Adding new controllers for experience and certificates
+  final TextEditingController _experienceController = TextEditingController();
+  final TextEditingController _certificatesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,7 @@ class _SigninBodyState extends State<SigninBody> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
-          key: _formKey, // تعيين المفتاح للتحقق من صحة النموذج
+          key: _formKey,
           child: Column(
             children: [
               const SizedBox(height: 15),
@@ -59,7 +65,7 @@ class _SigninBodyState extends State<SigninBody> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60.0),
                     child: TextFormField(
@@ -78,7 +84,7 @@ class _SigninBodyState extends State<SigninBody> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60.0),
                     child: TextFormField(
@@ -98,7 +104,7 @@ class _SigninBodyState extends State<SigninBody> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60.0),
                     child: TextFormField(
@@ -121,7 +127,7 @@ class _SigninBodyState extends State<SigninBody> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60.0),
                     child: TextFormField(
@@ -140,7 +146,7 @@ class _SigninBodyState extends State<SigninBody> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60.0),
                     child: TextFormField(
@@ -160,7 +166,7 @@ class _SigninBodyState extends State<SigninBody> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60.0),
                     child: DropdownButtonFormField<String>(
@@ -196,7 +202,7 @@ class _SigninBodyState extends State<SigninBody> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   if (_selectedRole == 'Customer') ...[
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 60.0),
@@ -237,7 +243,7 @@ class _SigninBodyState extends State<SigninBody> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 60.0),
                       child: TextFormField(
@@ -251,13 +257,55 @@ class _SigninBodyState extends State<SigninBody> {
                       ),
                     ),
                   ],
-                  const SizedBox(height: 30),
+                  if (_selectedRole == 'Doctor') ...[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                      child: TextFormField(
+                        controller: _experienceController,
+                        decoration: InputDecoration(
+                          labelText: 'Years of Experience',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your years of experience';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                      child: TextFormField(
+                        controller: _certificatesController,
+                        decoration: InputDecoration(
+                          labelText: 'Certificates',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your certificates';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-                        textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 50),
+                        textStyle: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                         backgroundColor: const Color(0xFFE8C3BA),
                         foregroundColor: Colors.white,
                       ),
@@ -267,7 +315,8 @@ class _SigninBodyState extends State<SigninBody> {
                           _formKey.currentState?.save();
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Please fill out all fields')),
+                            const SnackBar(
+                                content: Text('Please fill out all fields')),
                           );
                         }
                       },

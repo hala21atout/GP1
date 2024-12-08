@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'CustomerCommunity.dart'; // إضافة الاستيراد لصفحة الكومينتي
-import 'CustomerProfile.dart'; // إضافة الاستيراد لصفحة الكومينتي
-import 'CustomerChat.dart'; // إضافة الاستيراد لصفحة الكومينتي
+import 'DoctorProfilePage.dart'; // إضافة الاستيراد لصفحة الكومينتي
 import 'WhatIsDrGlowyPage.dart';
 import 'PrivacyInfoPage.dart';
 import 'FeedbackRatingPage.dart';
-import 'DoctorsPage.dart';
 import 'screens/LoginScreen/login.dart';
+import 'DoctorCommunityPage.dart'; // إضافة الاستيراد لصفحة الكومينتي
+import 'DoctorChatPage.dart';
+import 'DoctorSchedulingPage.dart';
+import 'DoctorMedicalLibraryPage.dart';
+
 
 class DoctorsHomePage extends StatefulWidget {
   const DoctorsHomePage({super.key});
@@ -58,7 +60,6 @@ class _HomePageState extends State<DoctorsHomePage>
   void _handleIconTap(int iconIndex) {
     setState(() {
       if (iconIndex == 1) {
-        // إذا كانت أيقونة الإشعارات
         _toggleNotifications();
       } else {
         _selectedIconIndex = _selectedIconIndex == iconIndex ? -1 : iconIndex;
@@ -137,12 +138,9 @@ class _HomePageState extends State<DoctorsHomePage>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 125),
-                  _buildButtonWithAnimation("Makeup",
-                      imagePath: "assets/makeup.jpg"),
-                  const SizedBox(height: 50),
-                  _buildButtonWithAnimation("Skin Care",
-                      imagePath: "assets/skincare.jpg"),
+                  const SizedBox(height: 210),
+                  _buildButtonWithAnimation("Medical Library",
+                      imagePath: "assets/medical_library.png"),
                   const SizedBox(height: 50),
                   _buildButtonWithAnimation("Scheduling",
                       imagePath: "assets/scheduling.png"),
@@ -219,14 +217,19 @@ class _HomePageState extends State<DoctorsHomePage>
   Widget _buildButtonWithAnimation(String text, {String? imagePath}) {
     return GestureDetector(
       onTap: () {
-        if (text == "Makeup") {
-        } else if (text == "Skin Care") {
-        } else if (text == "Doctors") {
+        if (text == "Medical Library") {
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    const DoctorsPage()), // الانتقال لصفحة Doctors
+                    const DoctorMedicalLibraryPage()), // الانتقال لصفحة Doctors
+          );
+        } else if (text == "Scheduling") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    const DoctorSchedulingPage()), // الانتقال لصفحة Doctors
           );
         }
       },
@@ -310,23 +313,19 @@ class _HomePageState extends State<DoctorsHomePage>
         setState(() {
           _selectedBottomMenu = label;
           if (_selectedBottomMenu == "Community") {
-            // الانتقال إلى صفحة الكومينتي عند الضغط على زر "Community"
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => const CustomerCommunity()),
+              MaterialPageRoute(builder: (context) => const DoctorCommunityPage()),
             );
           } else if (_selectedBottomMenu == "Chat") {
-            // الانتقال إلى صفحة الشات عند الضغط على زر "Chat"
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const CustomerChat()),
+              MaterialPageRoute(builder: (context) => const DoctorChatPage()),
             );
           } else if (_selectedBottomMenu == "Profile") {
-            // الانتقال إلى صفحة البروفايل عند الضغط على زر "Profile"
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const CustomerProfile()),
+              MaterialPageRoute(builder: (context) => const DoctorProfilePage()),
             );
           }
         });
