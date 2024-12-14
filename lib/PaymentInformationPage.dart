@@ -1,5 +1,5 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
+import 'Paymentsuccessfully.dart';
 
 class PaymentInformationPage extends StatefulWidget {
   const PaymentInformationPage({super.key});
@@ -10,17 +10,10 @@ class PaymentInformationPage extends StatefulWidget {
 }
 
 class _PaymentInformationPageState extends State<PaymentInformationPage> {
-  final _formKey = GlobalKey<FormState>();
-  // String? _cardNumber;
+  //final _formKey = GlobalKey<FormState>();
   String? _expiryDate;
-  // String? _cvv;
   String? _paymentMethod = 'Credit Card'; // Default payment method
 
-  // String? _paypalEmail;
-  // String? _googlePhone;
-  // String? _appleId;
-
-  // List of payment methods
   final List<String> _paymentMethods = [
     'Credit Card',
     'PayPal',
@@ -54,8 +47,6 @@ class _PaymentInformationPageState extends State<PaymentInformationPage> {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Payment Method Dropdown
               DropdownButtonFormField<String>(
                 value: _paymentMethod,
                 items: _paymentMethods.map((String method) {
@@ -87,8 +78,6 @@ class _PaymentInformationPageState extends State<PaymentInformationPage> {
                 },
               ),
               const SizedBox(height: 20),
-
-              // Credit Card Number (Only visible if 'Credit Card' is selected)
               if (_paymentMethod == 'Credit Card') ...[
                 TextFormField(
                   decoration: const InputDecoration(
@@ -97,17 +86,12 @@ class _PaymentInformationPageState extends State<PaymentInformationPage> {
                     prefixIcon: Icon(Icons.credit_card),
                   ),
                   keyboardType: TextInputType.number,
-                  onSaved: (value) {
-                    // _cardNumber = value;
-                  },
+                  onSaved: (value) {},
                 ),
                 const SizedBox(height: 20),
               ],
-
-              // Expiry Date
               Row(
                 children: [
-                  // Month
                   Expanded(
                     child: TextFormField(
                       decoration: const InputDecoration(
@@ -122,10 +106,6 @@ class _PaymentInformationPageState extends State<PaymentInformationPage> {
                     ),
                   ),
                   const SizedBox(width: 8),
-
-                  const SizedBox(width: 8),
-
-                  // Year (YY)
                   Expanded(
                     child: TextFormField(
                       decoration: const InputDecoration(
@@ -142,8 +122,6 @@ class _PaymentInformationPageState extends State<PaymentInformationPage> {
                 ],
               ),
               const SizedBox(height: 20),
-
-              // CVV
               TextFormField(
                 decoration: const InputDecoration(
                   labelText: 'CVV',
@@ -152,12 +130,8 @@ class _PaymentInformationPageState extends State<PaymentInformationPage> {
                 ),
                 obscureText: true,
                 keyboardType: TextInputType.number,
-                onSaved: (value) {
-                  // _cvv = value;
-                },
+                onSaved: (value) {},
               ),
-
-              // PayPal Specific Details (Visible if PayPal is selected)
               if (_paymentMethod == 'PayPal') ...[
                 const SizedBox(height: 20),
                 TextFormField(
@@ -167,13 +141,9 @@ class _PaymentInformationPageState extends State<PaymentInformationPage> {
                     prefixIcon: Icon(Icons.email),
                   ),
                   keyboardType: TextInputType.emailAddress,
-                  onSaved: (value) {
-                    // _paypalEmail = value;
-                  },
+                  onSaved: (value) {},
                 ),
               ],
-
-              // Google Pay Specific Details (Visible if Google Pay is selected)
               if (_paymentMethod == 'Google Pay') ...[
                 const SizedBox(height: 20),
                 TextFormField(
@@ -183,13 +153,9 @@ class _PaymentInformationPageState extends State<PaymentInformationPage> {
                     prefixIcon: Icon(Icons.phone),
                   ),
                   keyboardType: TextInputType.phone,
-                  onSaved: (value) {
-                    // _googlePhone = value;
-                  },
+                  onSaved: (value) {},
                 ),
               ],
-
-              // Apple Pay Specific Details (Visible if Apple Pay is selected)
               if (_paymentMethod == 'Apple Pay') ...[
                 const SizedBox(height: 20),
                 TextFormField(
@@ -199,61 +165,32 @@ class _PaymentInformationPageState extends State<PaymentInformationPage> {
                     prefixIcon: Icon(Icons.account_circle),
                   ),
                   keyboardType: TextInputType.text,
-                  onSaved: (value) {
-                    // _appleId = value;
-                  },
+                  onSaved: (value) {},
                 ),
               ],
-
               const SizedBox(height: 30),
-
-              // Save Payment Info Button
-              // Save Payment Info Button
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      // Save form data
-                      _formKey.currentState?.save();
-
-                      // Proceed with payment process
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text('Payment Successful'),
-                            content: Text(
-                                'Your payment info for $_paymentMethod has been saved successfully.'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PaymentSuccessfully(),
+                      ),
+                    );
                   },
                   // ignore: sort_child_properties_last
                   child: const Text(
                     'Confirm and buy',
-                    style: TextStyle(
-                        // fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 21), // تغيير لون الكتابة إلى الأبيض
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 26), // تقليل البادينج
-                    minimumSize: const Size(230, 65), // تحديد عرض الزر
+                        vertical: 14, horizontal: 26),
+                    minimumSize: const Size(230, 65),
                     backgroundColor: const Color(0xFFE8C3BA),
                   ),
                 ),
               ),
-
               const SizedBox(height: 30),
             ],
           ),

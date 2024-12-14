@@ -154,7 +154,7 @@ class _CustomerChatState extends State<MakeupPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Set background color to white
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70),
         child: AppBar(
@@ -162,11 +162,11 @@ class _CustomerChatState extends State<MakeupPage>
           elevation: 0,
           automaticallyImplyLeading: false,
           flexibleSpace: const Padding(
-            padding: EdgeInsets.only(top: 70.0, left: 20.0),
+            padding: EdgeInsets.only(top: 70.0, left: 128.0),
             child: Align(
               alignment: Alignment.topLeft,
               child: Text(
-                'Makeup Corner', // هنا يتم تغيير اللوغو إلى نص
+                'Makeup Corner',
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
@@ -178,7 +178,6 @@ class _CustomerChatState extends State<MakeupPage>
           actions: [
             IconButton(
               icon: Icon(
-                // ignore: deprecated_member_use
                 FontAwesomeIcons.shoppingCart,
                 size: 28,
                 color: _selectedIconIndex == 0 ? Colors.white : Colors.black38,
@@ -198,15 +197,25 @@ class _CustomerChatState extends State<MakeupPage>
         children: [
           const Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text(
-              "You don’t need makeup, makeup needs you ♡", // Modified text
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 23, // Slightly larger font size
-                fontWeight:
-                    FontWeight.w600, // Change to a more elegant font weight
-                color: Colors.black87,
-              ),
+          ),
+          SizedBox(
+            height: 100,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              children: [
+                _buildCategoryCircle("Eye brows", "assets/EyebrowsIcon.png"),
+                _buildCategoryCircle("Eye shadow", "assets/EyeshadowIcon.png"),
+                _buildCategoryCircle("Foundation", "assets/FoundationIcon.png"),
+                _buildCategoryCircle("highlighter", "assets/highlightIcon.png"),
+                _buildCategoryCircle("Eye liner", "assets/EyelinerIcon.png"),
+                _buildCategoryCircle("lip stick", "assets/lipstickIcon.png"),
+                _buildCategoryCircle("Nail", "assets/NailIcon.png"),
+                _buildCategoryCircle("Powder", "assets/PowderIcon.png"),
+                _buildCategoryCircle("Prsh", "assets/PrushIcon.png"),
+                _buildCategoryCircle("Mascara", "assets/MascaraIcon.png"),
+                _buildCategoryCircle("Blush", "assets/BlushIcon.png"),
+              ],
             ),
           ),
           Expanded(
@@ -221,10 +230,8 @@ class _CustomerChatState extends State<MakeupPage>
               itemCount: _makeupProducts.length,
               itemBuilder: (context, index) {
                 final product = _makeupProducts[index];
-
-                // تعديل القيم هنا باستخدام التحقق من null
                 String productName = product["name"] ?? "Unknown Product";
-               
+
                 return GestureDetector(
                   onTap: () {
                     // عرض تفاصيل المنتج عند الضغط عليه
@@ -378,6 +385,46 @@ class _CustomerChatState extends State<MakeupPage>
           _buildBottomMenu(),
         ],
       ),
+    );
+  }
+
+  Widget _buildCategoryCircle(String label, String assetPath) {
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 4,
+                offset: Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Center(
+            child: Image.asset(
+              assetPath,
+              fit: BoxFit.cover,
+              width: 40,
+              height: 40,
+            ),
+          ),
+        ),
+        const SizedBox(height: 5),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.black54,
+          ),
+        ),
+      ],
     );
   }
 

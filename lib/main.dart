@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'screens/LoginScreen/login.dart';
 import 'screens/SigninScreen/signin.dart';
 import 'CustomerCommunity.dart';
-import 'home_page.dart';
 import 'welcome_page.dart';
 import 'home_page.dart';
 import 'CustomerProfile.dart';
 import 'MakeupPage.dart';
+import 'SkinCarePage.dart';
 import 'ShoppingcartPage.dart';
 import 'DoctorsPage.dart';
 import 'DoctorsHomePage.dart';
@@ -14,6 +14,12 @@ import 'DoctorProfilePage.dart';
 import 'DoctorMedicalLibraryPage.dart';
 import 'DoctorSchedulingPage.dart';
 import 'DoctorChatPage.dart';
+import 'Companyhomepage.dart';
+import 'CompanyProfilePage.dart';
+import 'Paymentsuccessfully.dart';
+import 'PaymentInformationPage.dart';
+import 'Addproduct.dart';
+import 'Ordermanagement.dart';
 
 void main() {
   runApp(const MyApp());

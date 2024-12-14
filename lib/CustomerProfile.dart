@@ -54,21 +54,23 @@ class _CustomerProfileState extends State<CustomerProfile>
       _selectedBottomMenu = menuItem;
       // Navigate to "Home" page when "Home" is selected
       if (menuItem == "Home") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  const HomePage()), // تأكد من أن HomePage موجودة
-        );
+         Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomePage(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
+            );
       }
       // Navigate to "Community" page when "Community" is selected
       else if (menuItem == "Community") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  const CustomerCommunity()), // Make sure CustomerCommunity is available
-        );
+         Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CustomerCommunity(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
+            );
       }
       // Navigate to "Chat" page when "Chat" is selected
       else if (menuItem == "Chat") {
@@ -328,10 +330,12 @@ class _CustomerProfileState extends State<CustomerProfile>
           }
 
           if (text == "Log Out") {
-            Navigator.push(
+            Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                  builder: (context) => Login()), // تأكد من تعريف الصفحة
+                builder: (context) => Login(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
             );
           }
         },
@@ -505,8 +509,8 @@ class _CustomerProfileState extends State<CustomerProfile>
                     email = emailController.text;
                     address = addressController.text;
                     phoneNumber = phoneController.text;
-                    skinType=skinController.text;
-                    allergies=allergiesController.text;
+                    skinType = skinController.text;
+                    allergies = allergiesController.text;
                   });
                   Navigator.of(context).pop(); // Close the dialog after saving
                 },
@@ -525,9 +529,7 @@ class _CustomerProfileState extends State<CustomerProfile>
             .topCenter, // Align the image towards the top of the container
         child: Column(
           children: [
-
             const CircleAvatar(
-              
               radius: 125, // Set radius for the circular image
               backgroundImage: AssetImage(
                   'assets/user.jpg'), // Replace with the user's image

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'DoctorsHomePage.dart'; // تأكد من أنك قد أضفت هذه الصفحة في مشروعك
-import 'DoctorCommunityPage.dart'; // إضافة الاستيراد لصفحة الكومينتي
-import 'DoctorChatPage.dart';
+import 'CompanyHomePage.dart'; // تأكد من أنك قد أضفت هذه الصفحة في مشروعك
+import 'CompanyCommunityPage.dart'; // إضافة الاستيراد لصفحة الكومينتي
+import 'CompanyChatPage.dart';
 import 'WhatIsDrGlowyPage.dart';
 import 'PrivacyInfoPage.dart';
 import 'FeedbackRatingPage.dart';
 import 'screens/LoginScreen/login.dart';
 
-class DoctorProfilePage extends StatefulWidget {
-  const DoctorProfilePage({super.key});
+class CompanyProfilePage extends StatefulWidget {
+  const CompanyProfilePage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
   _CustomerProfileState createState() => _CustomerProfileState();
 }
 
-class _CustomerProfileState extends State<DoctorProfilePage>
+class _CustomerProfileState extends State<CompanyProfilePage>
     with TickerProviderStateMixin {
   bool _isMenuVisible = false;
   int _selectedIconIndex = -1; // -1 means no icon is selected
@@ -56,7 +56,7 @@ class _CustomerProfileState extends State<DoctorProfilePage>
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => DoctorsHomePage(), // استدعاء صفحة الهوم
+            builder: (context) => const Companyhomepage(), // استدعاء صفحة الهوم
           ),
           (Route<dynamic> route) => false, // إزالة الصفحات السابقة
         );
@@ -66,7 +66,8 @@ class _CustomerProfileState extends State<DoctorProfilePage>
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => DoctorCommunityPage(), // استدعاء صفحة الهوم
+            builder: (context) =>
+                const CompanyCommunityPage(), // استدعاء صفحة الهوم
           ),
           (Route<dynamic> route) => false, // إزالة الصفحات السابقة
         );
@@ -77,7 +78,7 @@ class _CustomerProfileState extends State<DoctorProfilePage>
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  const DoctorChatPage()), // Make sure CustomerChat is available
+                  const Companychatpage()), // Make sure CustomerChat is available
         );
       }
     });
@@ -418,9 +419,6 @@ class _CustomerProfileState extends State<DoctorProfilePage>
     String email = "Halaatout123@Gmail.com";
     String address = "123 Main St, City, Country";
     String phoneNumber = "+123 456 7890";
-    String experienceYears = "10"; // Years of experience
-    String qualifications =
-        "PhD in Dermatology, MSc in Medical Science"; // Doctor's qualifications
 
     // Controllers for text fields
     TextEditingController nameController = TextEditingController(text: name);
@@ -429,10 +427,6 @@ class _CustomerProfileState extends State<DoctorProfilePage>
         TextEditingController(text: address);
     TextEditingController phoneController =
         TextEditingController(text: phoneNumber);
-    TextEditingController experienceController =
-        TextEditingController(text: experienceYears);
-    TextEditingController qualificationsController =
-        TextEditingController(text: qualifications);
 
     void showEditDialog() {
       showDialog(
@@ -468,20 +462,6 @@ class _CustomerProfileState extends State<DoctorProfilePage>
                       labelText: "Phone Number",
                     ),
                   ),
-                  TextField(
-                    controller: experienceController,
-                    decoration: const InputDecoration(
-                      labelText: "Years of Experience",
-                    ),
-                    keyboardType:
-                        TextInputType.number, // Allows only numeric input
-                  ),
-                  TextField(
-                    controller: qualificationsController,
-                    decoration: const InputDecoration(
-                      labelText: "Qualifications",
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -501,8 +481,6 @@ class _CustomerProfileState extends State<DoctorProfilePage>
                     email = emailController.text;
                     address = addressController.text;
                     phoneNumber = phoneController.text;
-                    experienceYears = experienceController.text;
-                    qualifications = qualificationsController.text;
                   });
                   Navigator.of(context).pop(); // Close the dialog after saving
                 },
@@ -521,16 +499,16 @@ class _CustomerProfileState extends State<DoctorProfilePage>
             .topCenter, // Align the image towards the top of the container
         child: Column(
           children: [
-            const SizedBox(height: 15),
+            const SizedBox(height: 28),
             const CircleAvatar(
-              radius: 93, // Set radius for the circular image
+              radius: 95, // Set radius for the circular image
               backgroundImage: AssetImage(
-                  'assets/userD.jpg'), // Replace with the user's image
+                  'assets/userC.jpg'), // Replace with the user's image
               backgroundColor: Colors.transparent,
             ),
             const SizedBox(
                 height:
-                    17), // Increased space between the profile picture and the name
+                    40), // Increased space between the profile picture and the name
             Container(
               padding: const EdgeInsets.symmetric(
                   vertical: 12.0, horizontal: 20.0), // Increased padding
@@ -702,80 +680,6 @@ class _CustomerProfileState extends State<DoctorProfilePage>
                   ),
                   const SizedBox(height: 5),
 
-                  // Experience Section
-                  const Row(
-                    children: [
-                      Icon(
-                        Icons.work_outline, // Work experience icon
-                        size: 24, // Icon size
-                        color: Colors.black54, // Icon color
-                      ),
-                      SizedBox(width: 15), // Space between icon and text
-                      Text(
-                        'Years of Experience', // Label text
-                        style: TextStyle(
-                          fontSize: 20, // Font size for the label
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Spacer(),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      const SizedBox(width: 40),
-                      Text(
-                        "$experienceYears years",
-                        style: const TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black54,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-
-                  // Qualifications Section
-                  const Row(
-                    children: [
-                      Icon(
-                        Icons.school_outlined, // Qualifications icon
-                        size: 24, // Icon size
-                        color: Colors.black54, // Icon color
-                      ),
-                      SizedBox(width: 15), // Space between icon and text
-                      Text(
-                        'Qualifications',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Spacer(),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      const SizedBox(width: 40),
-                      Expanded(
-                        child: Text(
-                          qualifications,
-                          style: const TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black54,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
                   // Edit Profile Button
                   Center(
                     // Center the button

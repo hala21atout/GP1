@@ -1,33 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'CustomerCommunity.dart'; // إضافة الاستيراد لصفحة الكومينتي
-import 'CustomerProfile.dart'; // إضافة الاستيراد لصفحة الكومينتي
-import 'CustomerChat.dart'; // إضافة الاستيراد لصفحة الكومينتي
+import 'CompanyProfilePage.dart'; // إضافة الاستيراد لصفحة الكومينتي
 import 'WhatIsDrGlowyPage.dart';
 import 'PrivacyInfoPage.dart';
-import 'PaymentInformationPage.dart';
 import 'FeedbackRatingPage.dart';
-import 'MakeupPage.dart';
-import 'DoctorsPage.dart';
-import 'SkinCarePage.dart';
 import 'screens/LoginScreen/login.dart';
-import 'ShoppingcartPage.dart';
+import 'CompanyCommunityPage.dart'; // إضافة الاستيراد لصفحة الكومينتي
+import 'CompanyChatPage.dart';
+import 'Addproduct.dart';
+import 'Ordermanagement.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+class Companyhomepage extends StatefulWidget {
+  const Companyhomepage({super.key});
   @override
   // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _HomePageState extends State<Companyhomepage>
+    with TickerProviderStateMixin {
   bool _isMenuVisible = false;
   int _selectedIconIndex = -1; // -1 means no icon is selected
-  late AnimationController _controller;
-  late Animation<double> _textAnimation;
   String _selectedBottomMenu = "Home"; // Default selected menu item
   bool _isNotificationsVisible = false; // لتحديد ظهور خانة الإشعارات
+  late AnimationController _controller;
+  late Animation<double> _textAnimation;
 
   @override
   void initState() {
@@ -36,7 +33,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       duration: const Duration(seconds: 1),
       vsync: this,
     )..repeat(reverse: true);
-
     _textAnimation = Tween<double>(begin: 0, end: 10).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
@@ -63,7 +59,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void _handleIconTap(int iconIndex) {
     setState(() {
       if (iconIndex == 1) {
-        // إذا كانت أيقونة الإشعارات
         _toggleNotifications();
       } else {
         _selectedIconIndex = _selectedIconIndex == iconIndex ? -1 : iconIndex;
@@ -99,24 +94,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
           ),
           actions: [
-            IconButton(
-              icon: Icon(
-                // ignore: deprecated_member_use
-                FontAwesomeIcons.shoppingCart,
-                size: 28,
-                color: _selectedIconIndex == 0 ? Colors.white : Colors.black38,
-              ),
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ShoppingcartPage(), // استدعاء صفحة الهوم
-              ),
-              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
-            );
-              },
-              padding: const EdgeInsets.only(top: 20.0),
-            ),
             IconButton(
               icon: Icon(
                 FontAwesomeIcons.bell,
@@ -160,15 +137,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 150),
-                  _buildButtonWithAnimation("Makeup",
-                      imagePath: "assets/makeup.jpg"),
+                  const SizedBox(height: 20),
+                  _buildTextAboveButton0(
+                      "Welcome to Our Application! "), // النص قبل الزر
+                  const SizedBox(height: 20),
+                  _buildTextAboveButton(
+                      "We’re here to help you showcase your products and services effectively. On this page, you can display your latest offerings, special promotions, and more.  "), // النص قبل الزر
+                  _buildTextAboveButton(
+                      "Enjoy a seamless and integrated experience for promoting your business and engaging with your customers. Let’s get started on building a strong brand presence together!"), // النص قبل الزر
+
+                  const SizedBox(height: 65),
+
+                  _buildButtonWithAnimation("Add Product",
+                      imagePath: "assets/add_product3.png"),
                   const SizedBox(height: 50),
-                  _buildButtonWithAnimation("Skin Care",
-                      imagePath: "assets/skincare.jpg"),
-                  const SizedBox(height: 50),
-                  _buildButtonWithAnimation("Doctors",
-                      imagePath: "assets/doctors.jpg"),
+                  _buildButtonWithAnimation("Order Management",
+                      imagePath: "assets/add_product4.png"),
                   Expanded(child: Container()),
                   _buildBottomMenu(),
                 ],
@@ -204,13 +188,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                       const SizedBox(height: 20),
                       _buildMenuItem("Dr. Glowy"),
-                      _buildMenuItem("Payment Information"),
                       _buildMenuItem("Privacy Info"),
                       _buildMenuItem("Rating & Feedback"),
                       _buildMenuItem("Log Out"),
 
                       const Padding(
-                        padding: EdgeInsets.only(top: 377.0),
+                        padding: EdgeInsets.only(top: 436.0),
                         child: Divider(
                           thickness: 1,
                           color: Colors.black38,
@@ -240,27 +223,50 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
+  Widget _buildTextAboveButton0(String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          color: Colors.black38,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextAboveButton(String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Colors.black38,
+        ),
+      ),
+    );
+  }
+
   Widget _buildButtonWithAnimation(String text, {String? imagePath}) {
     return GestureDetector(
       onTap: () {
-        if (text == "Makeup") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const MakeupPage()),
-          );
-        } else if (text == "Skin Care") {
+        if (text == "Add Product") {
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    const SkinCarePage()), // الانتقال لصفحة Skin Care
+                    const Addproduct()), // الانتقال لصفحة Doctors
           );
-        } else if (text == "Doctors") {
+        } else if (text == "Order Management") {
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    const DoctorsPage()), // الانتقال لصفحة Doctors
+                    const Ordermanagement()), // الانتقال لصفحة Doctors
           );
         }
       },
@@ -328,8 +334,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               isSelected: _selectedBottomMenu == "Home"),
           _buildBottomIcon(Icons.people, "Community",
               isSelected: _selectedBottomMenu == "Community"),
-          _buildBottomIcon(Icons.camera_alt, "Camera",
-              isSelected: _selectedBottomMenu == "Camera"),
           _buildBottomIcon(Icons.chat_bubble, "Chat",
               isSelected: _selectedBottomMenu == "Chat"),
           _buildBottomIcon(Icons.person, "Profile",
@@ -346,26 +350,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         setState(() {
           _selectedBottomMenu = label;
           if (_selectedBottomMenu == "Community") {
-            // الانتقال إلى صفحة الكومينتي عند الضغط على زر "Community"
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const CustomerCommunity(), // استدعاء صفحة الهوم
+                builder: (context) =>
+                    const CompanyCommunityPage(), // استدعاء صفحة الهوم
               ),
               (Route<dynamic> route) => false, // إزالة الصفحات السابقة
             );
           } else if (_selectedBottomMenu == "Chat") {
-            // الانتقال إلى صفحة الشات عند الضغط على زر "Chat"
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const CustomerChat()),
+              MaterialPageRoute(builder: (context) => const Companychatpage()),
             );
           } else if (_selectedBottomMenu == "Profile") {
-            // الانتقال إلى صفحة البروفايل عند الضغط على زر "Profile"
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const CustomerProfile(), // استدعاء صفحة الهوم
+                builder: (context) =>
+                    const CompanyProfilePage(), // استدعاء صفحة الهوم
               ),
               (Route<dynamic> route) => false, // إزالة الصفحات السابقة
             );
@@ -423,7 +426,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       const WhatIsDrGlowyPage()), // تأكد من تعريف الصفحة
             );
           }
-
           if (text == "Privacy Info") {
             Navigator.push(
               context,
@@ -432,16 +434,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       const PrivacyInfoPage()), // تأكد من تعريف الصفحة
             );
           }
-
-          if (text == "Payment Information") {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      const PaymentInformationPage()), // تأكد من تعريف الصفحة
-            );
-          }
-
           if (text == "Rating & Feedback") {
             Navigator.push(
               context,
@@ -450,7 +442,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       const FeedbackRatingPage()), // تأكد من تعريف الصفحة
             );
           }
-
           if (text == "Log Out") {
             Navigator.pushAndRemoveUntil(
               context,
@@ -471,7 +462,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildNotificationsPanel() {
-    // قائمة ديناميكية للإشعارات
     final List<Map<String, String>> notifications = [
       {
         "type": "like",

@@ -10,7 +10,6 @@ import 'DoctorChatPage.dart';
 import 'DoctorSchedulingPage.dart';
 import 'DoctorMedicalLibraryPage.dart';
 
-
 class DoctorsHomePage extends StatefulWidget {
   const DoctorsHomePage({super.key});
   @override
@@ -313,9 +312,12 @@ class _HomePageState extends State<DoctorsHomePage>
         setState(() {
           _selectedBottomMenu = label;
           if (_selectedBottomMenu == "Community") {
-            Navigator.push(
+             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const DoctorCommunityPage()),
+              MaterialPageRoute(
+                builder: (context) => DoctorCommunityPage(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
             );
           } else if (_selectedBottomMenu == "Chat") {
             Navigator.push(
@@ -323,9 +325,12 @@ class _HomePageState extends State<DoctorsHomePage>
               MaterialPageRoute(builder: (context) => const DoctorChatPage()),
             );
           } else if (_selectedBottomMenu == "Profile") {
-            Navigator.push(
+             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const DoctorProfilePage()),
+              MaterialPageRoute(
+                builder: (context) => DoctorProfilePage(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
             );
           }
         });
@@ -398,10 +403,12 @@ class _HomePageState extends State<DoctorsHomePage>
             );
           }
           if (text == "Log Out") {
-            Navigator.push(
+            Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                  builder: (context) => Login()), // تأكد من تعريف الصفحة
+                builder: (context) => Login(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
             );
           }
         },

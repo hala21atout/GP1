@@ -18,18 +18,99 @@ class _SkinCarePageState extends State<SkinCarePage>
   int _selectedIconIndex = -1;
   String _selectedBottomMenu = "";
 
-  
   final List<Map<String, dynamic>> _skinCareProducts = [
-    {"name": "Face Cream", "image": "assets/face_cream.png", "price": 80.0, "description": "A moisturizing face cream to keep your skin smooth and soft.", "skinType": "Dry & Normal Skin", "warning": "Avoid contact with eyes.", "allergens": "Fragrance, Parabens"},
-    {"name": "Toner", "image": "assets/toner.png", "price": 50.0, "description": "A refreshing toner for clean and balanced skin.", "skinType": "All Skin Types", "warning": "Patch test before use.", "allergens": "Alcohol, Fragrance"},
-    {"name": "Serum", "image": "assets/serum.png", "price": 100.0, "description": "An anti-aging serum to improve skin elasticity.", "skinType": "Mature Skin", "warning": "Use with sunscreen.", "allergens": "Fragrance, Alcohol"},
-    {"name": "Moisturizer", "image": "assets/moisturizer.png", "price": 70.0, "description": "A rich moisturizer for deep hydration.", "skinType": "Dry & Sensitive Skin", "warning": "Avoid use on broken skin.", "allergens": "Fragrance, Parabens"},
-    {"name": "Exfoliator", "image": "assets/exfoliator.png", "price": 40.0, "description": "An exfoliator to remove dead skin cells and refresh your face.", "skinType": "Oily Skin", "warning": "Do not over-exfoliate.", "allergens": "AHA, Fragrance"},
-    {"name": "Face Mask", "image": "assets/face_mask.png", "price": 60.0, "description": "A deep-cleansing face mask for glowing skin.", "skinType": "Combination Skin", "warning": "Not recommended for sensitive skin.", "allergens": "Fragrance, Parabens"},
-    {"name": "Sunscreen", "image": "assets/sunscreen.png", "price": 90.0, "description": "Broad-spectrum sunscreen to protect from UV rays.", "skinType": "All Skin Types", "warning": "Reapply every 2 hours.", "allergens": "Oxybenzone, Fragrance"},
-    {"name": "Eye Cream", "image": "assets/eye_cream.png", "price": 55.0, "description": "An eye cream to reduce puffiness and dark circles.", "skinType": "All Skin Types", "warning": "Avoid contact with eyes.", "allergens": "Fragrance, Parabens"},
-    {"name": "Lip Balm", "image": "assets/lip_balm.png", "price": 25.0, "description": "A nourishing lip balm for soft lips.", "skinType": "All Skin Types", "warning": "Keep away from heat.", "allergens": "Beeswax, Fragrance"},
-    {"name": "Body Lotion", "image": "assets/body_lotion.png", "price": 45.0, "description": "A rich body lotion to keep your skin hydrated.", "skinType": "Dry Skin", "warning": "Use after a shower.", "allergens": "Fragrance, Parabens"},
+    {
+      "name": "Face Cream",
+      "image": "assets/face_cream.png",
+      "price": 80.0,
+      "description":
+          "A moisturizing face cream to keep your skin smooth and soft.",
+      "skinType": "Dry & Normal Skin",
+      "warning": "Avoid contact with eyes.",
+      "allergens": "Fragrance, Parabens"
+    },
+    {
+      "name": "Toner",
+      "image": "assets/toner.png",
+      "price": 50.0,
+      "description": "A refreshing toner for clean and balanced skin.",
+      "skinType": "All Skin Types",
+      "warning": "Patch test before use.",
+      "allergens": "Alcohol, Fragrance"
+    },
+    {
+      "name": "Serum",
+      "image": "assets/serum.png",
+      "price": 100.0,
+      "description": "An anti-aging serum to improve skin elasticity.",
+      "skinType": "Mature Skin",
+      "warning": "Use with sunscreen.",
+      "allergens": "Fragrance, Alcohol"
+    },
+    {
+      "name": "Moisturizer",
+      "image": "assets/moisturizer.png",
+      "price": 70.0,
+      "description": "A rich moisturizer for deep hydration.",
+      "skinType": "Dry & Sensitive Skin",
+      "warning": "Avoid use on broken skin.",
+      "allergens": "Fragrance, Parabens"
+    },
+    {
+      "name": "Exfoliator",
+      "image": "assets/exfoliator.png",
+      "price": 40.0,
+      "description":
+          "An exfoliator to remove dead skin cells and refresh your face.",
+      "skinType": "Oily Skin",
+      "warning": "Do not over-exfoliate.",
+      "allergens": "AHA, Fragrance"
+    },
+    {
+      "name": "Face Mask",
+      "image": "assets/face_mask.png",
+      "price": 60.0,
+      "description": "A deep-cleansing face mask for glowing skin.",
+      "skinType": "Combination Skin",
+      "warning": "Not recommended for sensitive skin.",
+      "allergens": "Fragrance, Parabens"
+    },
+    {
+      "name": "Sunscreen",
+      "image": "assets/sunscreen.png",
+      "price": 90.0,
+      "description": "Broad-spectrum sunscreen to protect from UV rays.",
+      "skinType": "All Skin Types",
+      "warning": "Reapply every 2 hours.",
+      "allergens": "Oxybenzone, Fragrance"
+    },
+    {
+      "name": "Eye Cream",
+      "image": "assets/eye_cream.png",
+      "price": 55.0,
+      "description": "An eye cream to reduce puffiness and dark circles.",
+      "skinType": "All Skin Types",
+      "warning": "Avoid contact with eyes.",
+      "allergens": "Fragrance, Parabens"
+    },
+    {
+      "name": "Lip Balm",
+      "image": "assets/lip_balm.png",
+      "price": 25.0,
+      "description": "A nourishing lip balm for soft lips.",
+      "skinType": "All Skin Types",
+      "warning": "Keep away from heat.",
+      "allergens": "Beeswax, Fragrance"
+    },
+    {
+      "name": "Body Lotion",
+      "image": "assets/body_lotion.png",
+      "price": 45.0,
+      "description": "A rich body lotion to keep your skin hydrated.",
+      "skinType": "Dry Skin",
+      "warning": "Use after a shower.",
+      "allergens": "Fragrance, Parabens"
+    },
   ];
 
   void _handleIconTap(int iconIndex) {
@@ -83,7 +164,7 @@ class _SkinCarePageState extends State<SkinCarePage>
           elevation: 0,
           automaticallyImplyLeading: false,
           flexibleSpace: const Padding(
-            padding: EdgeInsets.only(top: 70.0, left: 20.0),
+            padding: EdgeInsets.only(top: 70.0, left: 120.0),
             child: Align(
               alignment: Alignment.topLeft,
               child: Text(
@@ -119,15 +200,24 @@ class _SkinCarePageState extends State<SkinCarePage>
         children: [
           const Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text(
-              "Your skin is your best accessory, treat it with the love it deserves ♡", // Modified text
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 23, // Slightly larger font size
-                fontWeight:
-                    FontWeight.w600, // Change to a more elegant font weight
-                color: Colors.black87,
-              ),
+          ),
+          SizedBox(
+            height: 100,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              children: [
+                _buildCategoryCircle("Face Cream", "assets/FaceCreamIcon.png"),
+                _buildCategoryCircle("Tonar", "assets/TonerIcon.png"),
+                _buildCategoryCircle("Serum", "assets/SerumIcon.png"),
+                _buildCategoryCircle("Moisturizer", "assets/MoisturizerIcon.png"),
+                _buildCategoryCircle("Mask", "assets/MaskIcon.png"),
+                _buildCategoryCircle("Sun Screen", "assets/SunScreenIcon.png"),
+                _buildCategoryCircle("Exfolistor", "assets/ExfolistorIcon.png"),
+                _buildCategoryCircle("Eye Cream", "assets/EyeCreanIcon.png"),
+                _buildCategoryCircle("Body Lotion", "assets/BodyLotionIcon.png"),
+                _buildCategoryCircle("Lip Balm", "assets/LipBalmIcon.png"),
+              ],
             ),
           ),
           Expanded(
@@ -145,7 +235,7 @@ class _SkinCarePageState extends State<SkinCarePage>
 
                 // تعديل القيم هنا باستخدام التحقق من null
                 String productName = product["name"] ?? "Unknown Product";
-               
+
                 return GestureDetector(
                   onTap: () {
                     // عرض تفاصيل المنتج عند الضغط عليه
@@ -302,6 +392,45 @@ class _SkinCarePageState extends State<SkinCarePage>
     );
   }
 
+  Widget _buildCategoryCircle(String label, String assetPath) {
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 4,
+                offset: Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Center(
+            child: Image.asset(
+              assetPath,
+              fit: BoxFit.cover,
+              width: 40,
+              height: 40,
+            ),
+          ),
+        ),
+        const SizedBox(height: 5),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.black54,
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget _buildBottomMenu() {
     return Container(

@@ -68,22 +68,31 @@ class _CustomerChatState extends State<CustomerChat>
     setState(() {
       _selectedBottomMenu = menuItem;
       if (menuItem == "Home") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
-        );
+         Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomePage(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
+            );
       }
       if (menuItem == "Community") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const CustomerCommunity()),
-        );
+         Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CustomerCommunity(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
+            );
       }
       if (menuItem == "Profile") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const CustomerProfile()),
-        );
+         Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CustomerProfile(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
+            );
       }
     });
   }

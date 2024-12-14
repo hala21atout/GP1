@@ -1,24 +1,23 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'home_page.dart'; // تأكد من أنك قد أضفت هذه الصفحة في مشروعك
-import 'CustomerProfile.dart'; // إضافة الاستيراد لصفحة البروفايل
-import 'CustomerChat.dart'; // إضافة الاستيراد لصفحة الشات
+import 'CompanyHomePage.dart'; // تأكد من أنك قد أضفت هذه الصفحة في مشروعك
+import 'CompanyProfilePage.dart';
+import 'CompanyChatPage.dart'; // إضافة الاستيراد لصفحة الشات
 import 'WhatIsDrGlowyPage.dart';
 import 'PrivacyInfoPage.dart';
-import 'PaymentInformationPage.dart';
 import 'FeedbackRatingPage.dart';
 import 'screens/LoginScreen/login.dart';
 
-class CustomerCommunity extends StatefulWidget {
-  const CustomerCommunity({super.key});
+class CompanyCommunityPage extends StatefulWidget {
+  const CompanyCommunityPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
   _CustomerCommunityState createState() => _CustomerCommunityState();
 }
 
-class _CustomerCommunityState extends State<CustomerCommunity>
+class _CustomerCommunityState extends State<CompanyCommunityPage>
     with TickerProviderStateMixin {
   bool _isMenuVisible = false;
   int _selectedIconIndex = -1; // -1 means no icon is selected
@@ -60,28 +59,28 @@ class _CustomerCommunityState extends State<CustomerCommunity>
       _selectedBottomMenu = menuItem;
       // Navigate to "Home" page when "Home" is selected
       if (menuItem == "Home") {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomePage(), // استدعاء صفحة الهوم
-          ),
-          (Route<dynamic> route) => false, // إزالة الصفحات السابقة
-        );
+         Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Companyhomepage(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
+            );
       } else if (menuItem == "Chat") {
         // الانتقال إلى صفحة الشات عند الضغط على زر "Chat"
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const CustomerChat()),
+          MaterialPageRoute(builder: (context) => const Companychatpage()),
         );
       } else if (menuItem == "Profile") {
         // الانتقال إلى صفحة البروفايل عند الضغط على زر "Profile"
         Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const CustomerProfile(), // استدعاء صفحة الهوم
-          ),
-          (Route<dynamic> route) => false, // إزالة الصفحات السابقة
-        );
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CompanyProfilePage(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
+            );
       }
     });
   }
@@ -96,8 +95,8 @@ class _CustomerCommunityState extends State<CustomerCommunity>
           elevation: 0,
           automaticallyImplyLeading: false, // Remove default leading icon
           flexibleSpace: const Padding(
-            padding:
-                EdgeInsets.only(top: 30.0, left: 5.0), // Adjust logo padding
+            padding: EdgeInsets.only(
+                top: 30.0, left: 5.0), // Adjust logo padding
           ),
           actions: [
             IconButton(
@@ -340,13 +339,12 @@ class _CustomerCommunityState extends State<CustomerCommunity>
                       ),
                       const SizedBox(height: 20),
                       _buildMenuItem("Dr. Glowy"),
-                      _buildMenuItem("Payment Information"),
                       _buildMenuItem("Privacy Info"),
                       _buildMenuItem("Rating & Feedback"),
                       _buildMenuItem("Log Out"),
 
                       const Padding(
-                        padding: EdgeInsets.only(top: 377.0),
+                        padding: EdgeInsets.only(top: 436.0),
                         child: Divider(
                           thickness: 1,
                           color: Colors.black38,
@@ -435,8 +433,6 @@ class _CustomerCommunityState extends State<CustomerCommunity>
               isSelected: _selectedBottomMenu == "Home"),
           _buildBottomIcon(Icons.people, "Community",
               isSelected: _selectedBottomMenu == "Community"),
-          _buildBottomIcon(Icons.camera_alt, "Camera",
-              isSelected: _selectedBottomMenu == "Camera"),
           _buildBottomIcon(Icons.chat_bubble, "Chat",
               isSelected: _selectedBottomMenu == "Chat"),
           _buildBottomIcon(Icons.person, "Profile",
@@ -511,15 +507,6 @@ class _CustomerCommunityState extends State<CustomerCommunity>
             );
           }
 
-          if (text == "Payment Information") {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      const PaymentInformationPage()), // تأكد من تعريف الصفحة
-            );
-          }
-
           if (text == "Rating & Feedback") {
             Navigator.push(
               context,
@@ -530,12 +517,10 @@ class _CustomerCommunityState extends State<CustomerCommunity>
           }
 
           if (text == "Log Out") {
-            Navigator.pushAndRemoveUntil(
+            Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Login(), // استدعاء صفحة الهوم
-              ),
-              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
+                  builder: (context) => Login()), // تأكد من تعريف الصفحة
             );
           }
         },

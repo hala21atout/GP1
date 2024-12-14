@@ -329,9 +329,13 @@ class _SigninBodyState extends State<SigninBody> {
                   const SizedBox(height: 20),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => Login()),
+                        MaterialPageRoute(
+                          builder: (context) => Login(), // استدعاء صفحة الهوم
+                        ),
+                        (Route<dynamic> route) =>
+                            false, // إزالة الصفحات السابقة
                       );
                     },
                     child: RichText(

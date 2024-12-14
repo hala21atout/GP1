@@ -82,7 +82,6 @@ class _HomePageState extends State<DoctorsPage> with TickerProviderStateMixin {
       ],
     },
   ];
-
   @override
   void dispose() {
     _controller.dispose();
@@ -119,38 +118,33 @@ class _HomePageState extends State<DoctorsPage> with TickerProviderStateMixin {
               topRight: Radius.circular(20),
             ),
           ),
-          child: ListView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
-                "Select a Day",
+                "Select a Date",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
-              Wrap(
-                spacing: 10,
-                children: [
-                  ...[
-                    "Saturday",
-                    "Sunday",
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday"
-                  ]
-                      .map(
-                        (day) => ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            _selectTime(context, doctor, day);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFE8C3BA),
-                          ),
-                          child: Text(day),
+              SizedBox(
+                height: 300,
+                child: CalendarDatePicker(
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime.now().add(const Duration(days: 30)),
+                  onDateChanged: (selectedDate) {
+                    if (selectedDate.weekday == DateTime.friday) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Friday is not available for booking."),
                         ),
-                      )
-                      .toList(),
-                ],
+                      );
+                    } else {
+                      Navigator.pop(context);
+                      _selectTime(context, doctor, selectedDate);
+                    }
+                  },
+                ),
               ),
             ],
           ),
@@ -159,8 +153,8 @@ class _HomePageState extends State<DoctorsPage> with TickerProviderStateMixin {
     );
   }
 
-  void _selectTime(
-      BuildContext context, Map<String, dynamic> doctor, String selectedDay) {
+  void _selectTime(BuildContext context, Map<String, dynamic> doctor,
+      DateTime selectedDate) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -177,7 +171,7 @@ class _HomePageState extends State<DoctorsPage> with TickerProviderStateMixin {
           child: ListView(
             children: [
               Text(
-                "Available Times for $selectedDay",
+                "Available Times for ${selectedDate.toLocal()}",
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
@@ -222,7 +216,7 @@ class _HomePageState extends State<DoctorsPage> with TickerProviderStateMixin {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                      'Appointment booked at ${hour["time"]} on $selectedDay'),
+                                      'Appointment booked at ${hour["time"]} on ${selectedDate.toLocal()}'),
                                 ),
                               );
                             },

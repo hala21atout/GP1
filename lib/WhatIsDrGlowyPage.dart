@@ -9,7 +9,10 @@ class WhatIsDrGlowyPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           "Dr. Glowy",
-          style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: 26,
+              color: Colors.black87, // Text color
+              fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color(0xFFE8C3BA),
         toolbarHeight: 70, // Increase AppBar height
@@ -19,7 +22,8 @@ class WhatIsDrGlowyPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Center(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start, // Align content to the left
+              crossAxisAlignment:
+                  CrossAxisAlignment.start, // Align content to the left
               children: [
                 Text(
                   "What Is Dr Glowy ? ", // Title text

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'DoctorsHomePage.dart';
-import 'DoctorCommunityPage.dart';
-import 'DoctorProfilePage.dart';
+import 'CompanyHomePage.dart';
+import 'CompanyCommunityPage.dart';
+import 'CompanyProfilePage.dart';
 
-class DoctorChatPage extends StatefulWidget {
-  const DoctorChatPage({super.key});
+class Companychatpage extends StatefulWidget {
+  const Companychatpage({super.key});
 
   @override
   _DoctorChatPageState createState() => _DoctorChatPageState();
 }
 
-class _DoctorChatPageState extends State<DoctorChatPage> {
+class _DoctorChatPageState extends State<Companychatpage> {
   String _selectedBottomMenu = "Chat";
   String _searchQuery = ""; // قيمة البحث
   final List<Map<String, String>> _chatData = [
@@ -31,10 +31,10 @@ class _DoctorChatPageState extends State<DoctorChatPage> {
     setState(() {
       _selectedBottomMenu = menuItem;
       if (menuItem == "Home") {
-         Navigator.pushAndRemoveUntil(
+        Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => DoctorsHomePage(), // استدعاء صفحة الهوم
+                builder: (context) => const Companyhomepage(), // استدعاء صفحة الهوم
               ),
               (Route<dynamic> route) => false, // إزالة الصفحات السابقة
             );
@@ -43,7 +43,7 @@ class _DoctorChatPageState extends State<DoctorChatPage> {
          Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => DoctorCommunityPage(), // استدعاء صفحة الهوم
+                builder: (context) => const CompanyCommunityPage(), // استدعاء صفحة الهوم
               ),
               (Route<dynamic> route) => false, // إزالة الصفحات السابقة
             );
@@ -52,7 +52,7 @@ class _DoctorChatPageState extends State<DoctorChatPage> {
          Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => DoctorProfilePage(), // استدعاء صفحة الهوم
+                builder: (context) => const CompanyProfilePage(), // استدعاء صفحة الهوم
               ),
               (Route<dynamic> route) => false, // إزالة الصفحات السابقة
             );

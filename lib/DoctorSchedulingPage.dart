@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DoctorSchedulingPage extends StatefulWidget {
-  const DoctorSchedulingPage({super.key});
+  const DoctorSchedulingPage({Key? key}) : super(key: key);
 
   @override
   _DoctorSchedulingPageState createState() => _DoctorSchedulingPageState();
@@ -9,18 +9,22 @@ class DoctorSchedulingPage extends StatefulWidget {
 
 class _DoctorSchedulingPageState extends State<DoctorSchedulingPage> {
   String selectedMonth = 'December';
-  String selectedDay = 'Mon';
+  String? selectedDate;
 
   void _onMonthChanged(String? newValue) {
     setState(() {
       selectedMonth = newValue!;
+      selectedDate = null; // Clear the selected date when month changes
     });
   }
 
-  void _onDayChanged(String newDay) {
-    setState(() {
-      selectedDay = newDay;
-    });
+  List<String> getDatesForSelectedMonth() {
+    if (selectedMonth == 'December') {
+      return List.generate(31, (index) => (index + 1).toString());
+    } else if (selectedMonth == 'January') {
+      return List.generate(31, (index) => (index + 1).toString());
+    }
+    return [];
   }
 
   @override
@@ -29,7 +33,11 @@ class _DoctorSchedulingPageState extends State<DoctorSchedulingPage> {
       appBar: AppBar(
         title: const Text(
           "Doctor's Schedule",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.black38,),
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.black54,
+          ),
         ),
         backgroundColor: const Color(0xFFE8C3BA),
         toolbarHeight: 70,
@@ -37,7 +45,7 @@ class _DoctorSchedulingPageState extends State<DoctorSchedulingPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // التقويم
+          // Calendar section
           Container(
             padding:
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
@@ -76,134 +84,90 @@ class _DoctorSchedulingPageState extends State<DoctorSchedulingPage> {
                 ),
                 const SizedBox(width: 16),
                 DropdownButton<String>(
-                  value: selectedDay,
-                  onChanged: (String? newDay) {
-                    if (newDay != null) {
-                      _onDayChanged(newDay);
-                    }
+                  value: selectedDate,
+                  onChanged: (String? newDate) {
+                    setState(() {
+                      selectedDate = newDate;
+                    });
                   },
-                  items: <String>[
-                    'Sun',
-                    'Mon',
-                    'Tue',
-                    'Wed',
-                    'Thu',
-                    'Fri',
-                    'Sat'
-                  ].map<DropdownMenuItem<String>>((String value) {
+                  items: getDatesForSelectedMonth()
+                      .map<DropdownMenuItem<String>>((String date) {
                     return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
+                      value: date,
+                      child: Text(date),
                     );
                   }).toList(),
                 ),
               ],
             ),
           ),
-          // الأيام
-          Container(
-            height: 90,
-            color: const Color(0xFFF4F4FB),
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 7,
-              itemBuilder: (context, index) {
-                String dayName =
-                    ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        dayName,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: selectedDay == dayName
-                              ? Colors.black
-                              : Colors.black,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      CircleAvatar(
-                        radius: 20,
-                        backgroundColor: selectedDay == dayName
-                            ? const Color(0xFFE8C3BA)
-                            : Colors.grey[300],
-                        child: Text(
-                          "${index + 1}",
-                          style: TextStyle(
-                            color: selectedDay == dayName
-                                ? Colors.white
-                                : Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
+          // Appointments section (only show when a date is selected)
+          if (selectedDate != null)
+            Expanded(
+              child: ListView(
+                children: const [
+                  AppointmentTile(
+                    time: "09:00 AM",
+                    title: "Patient: John Doe",
+                    description: "Skin check-up",
+                    location: "Room 101",
+                    date: "December 3",
+                    color: Color(0xFF4CAF50),
                   ),
-                );
-              },
+                  AppointmentTile(
+                    time: "10:00 AM",
+                    title: "Patient: Mary Smith",
+                    description: "Follow-up on medication",
+                    location: "Room 102",
+                    date: "December 3",
+                    color: Color(0xFFFF9800),
+                  ),
+                  NotreservedTile(
+                    time: "11:00 AM",
+                  ),
+                  AppointmentTile(
+                    time: "12:00 AM",
+                    title: "Team Meeting",
+                    description: "Weekly review",
+                    location: "Conference Room",
+                    date: "December 3",
+                    color: Color(0xFF9C27B0),
+                  ),
+                  NotreservedTile(
+                    time: "01:00 PM",
+                  ),
+                  AppointmentTile(
+                    time: "02:00 PM",
+                    title: "Patient: Alex Johnson",
+                    description: "Consultation on skin care",
+                    location: "Room 103",
+                    date: "December 4",
+                    color: Color(0xFFE91E63),
+                  ),
+                  AppointmentTile(
+                    time: "03:00 PM",
+                    title: "Patient: Sarah Lee",
+                    description: "Acne treatment follow-up",
+                    location: "Room 104",
+                    date: "December 5",
+                    color: Color(0xFF00BCD4),
+                  ),
+                  NotreservedTile(
+                    time: "04:00 PM",
+                  ),
+                ],
+              ),
+            )
+          else
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.all(24.0),
+                child: Text(
+                  "Please select a date to view appointments.",
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+              ),
             ),
-          ),
-          const Divider(thickness: 2),
-          // المواعيد
-          Expanded(
-            child: ListView(
-              children: const [
-                AppointmentTile(
-                  time: "09:00 AM",
-                  title: "Patient: John Doe",
-                  description: "Skin check-up",
-                  location: "Room 101",
-                  date: "December 3, 2024",
-                  color: Color(0xFF4CAF50),
-                ),
-                AppointmentTile(
-                  time: "10:00 AM",
-                  title: "Patient: Mary Smith",
-                  description: "Follow-up on medication",
-                  location: "Room 102",
-                  date: "December 3, 2024",
-                  color: Color(0xFFFF9800),
-                ),
-                NotreservedTile(
-                  time: "11:00 AM",
-                ),
-                AppointmentTile(
-                  time: "12:00 AM",
-                  title: "Team Meeting",
-                  description: "Weekly review",
-                  location: "Conference Room",
-                  date: "December 3, 2024",
-                  color: Color(0xFF9C27B0),
-                ),
-                NotreservedTile(
-                  time: "01:00 PM",
-                ),
-                AppointmentTile(
-                  time: "02:00 PM",
-                  title: "Patient: Alex Johnson",
-                  description: "Consultation on skin care",
-                  location: "Room 103",
-                  date: "December 3, 2024",
-                  color: Color(0xFFE91E63),
-                ),
-                AppointmentTile(
-                  time: "03:00 PM",
-                  title: "Patient: Sarah Lee",
-                  description: "Acne treatment follow-up",
-                  location: "Room 104",
-                  date: "December 3, 2024",
-                  color: Color(0xFF00BCD4),
-                ),
-                NotreservedTile(
-                  time: "04:00 PM",
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );
@@ -217,18 +181,16 @@ class AppointmentTile extends StatelessWidget {
   final String location;
   final String date;
   final Color color;
-  final bool isReserved;
 
   const AppointmentTile({
-    super.key,
+    Key? key,
     required this.time,
     required this.title,
     required this.description,
     required this.location,
     required this.date,
     required this.color,
-    this.isReserved = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -292,7 +254,7 @@ class AppointmentTile extends StatelessWidget {
 class NotreservedTile extends StatelessWidget {
   final String time;
 
-  const NotreservedTile({super.key, required this.time});
+  const NotreservedTile({Key? key, required this.time}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -304,21 +266,31 @@ class NotreservedTile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const CircleAvatar(
-                radius: 15,
-                backgroundColor: Color(0xFFD4EDDA),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Text(
-                  "$time - Not reserved",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF155724),
-                  ),
+              Text(
+                "$time - Not reserved",
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF155724),
                 ),
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // Add reservation action
+                    },
+                    icon: const Icon(Icons.add, color: Colors.green),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      // Cancel reservation action
+                    },
+                    icon: const Icon(Icons.cancel, color: Colors.red),
+                  ),
+                ],
               ),
             ],
           ),

@@ -59,12 +59,13 @@ class _CustomerCommunityState extends State<DoctorCommunityPage>
       _selectedBottomMenu = menuItem;
       // Navigate to "Home" page when "Home" is selected
       if (menuItem == "Home") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  const DoctorsHomePage()), // تأكد من أن HomePage موجودة
-        );
+        Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DoctorsHomePage(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
+            );
       } else if (menuItem == "Chat") {
         // الانتقال إلى صفحة الشات عند الضغط على زر "Chat"
         Navigator.push(
@@ -73,10 +74,13 @@ class _CustomerCommunityState extends State<DoctorCommunityPage>
         );
       } else if (menuItem == "Profile") {
         // الانتقال إلى صفحة البروفايل عند الضغط على زر "Profile"
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const DoctorProfilePage()),
-        );
+         Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DoctorProfilePage(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
+            );
       }
     });
   }
@@ -513,10 +517,12 @@ class _CustomerCommunityState extends State<DoctorCommunityPage>
           }
 
           if (text == "Log Out") {
-            Navigator.push(
+            Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                  builder: (context) => Login()), // تأكد من تعريف الصفحة
+                builder: (context) => Login(), // استدعاء صفحة الهوم
+              ),
+              (Route<dynamic> route) => false, // إزالة الصفحات السابقة
             );
           }
         },

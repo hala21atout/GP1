@@ -28,7 +28,10 @@ class _LoginBodyState extends State<LoginBody> {
             const SizedBox(height: 5),
             const Text(
               'Hi, good to see you again',
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400, color: Color(0xFFE8C3BA)),
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFFE8C3BA)),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 10),
@@ -62,7 +65,6 @@ class _LoginBodyState extends State<LoginBody> {
                     ),
                   ),
                   const SizedBox(height: 20),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60.0),
                     child: TextFormField(
@@ -73,7 +75,9 @@ class _LoginBodyState extends State<LoginBody> {
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         suffixIcon: IconButton(
-                          icon: Icon(_isPasswordHidden ? Icons.visibility : Icons.visibility_off),
+                          icon: Icon(_isPasswordHidden
+                              ? Icons.visibility
+                              : Icons.visibility_off),
                           onPressed: () {
                             setState(() {
                               _isPasswordHidden = !_isPasswordHidden;
@@ -88,18 +92,19 @@ class _LoginBodyState extends State<LoginBody> {
                         return null;
                       },
                       onSaved: (value) {
-                       // _password = value;
+                        // _password = value;
                       },
                     ),
                   ),
                   const SizedBox(height: 20),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-                        textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 50),
+                        textStyle: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                         backgroundColor: const Color(0xFFE8C3BA),
                         foregroundColor: Colors.white,
                       ),
@@ -111,28 +116,33 @@ class _LoginBodyState extends State<LoginBody> {
                         } else {
                           // إذا لم يكن النموذج صالحًا، عرض رسالة (اختياري)
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Please fill out all fields')),
+                            SnackBar(
+                                content: Text('Please fill out all fields')),
                           );
                         }
                       },
-                      child: const Text('Login', style: TextStyle(color: Colors.white)),
+                      child: const Text('Login',
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ),
                   const SizedBox(height: 10),
-
                   TextButton(
                     onPressed: () {
                       // معالجة الضغط على زر "نسيت كلمة المرور"
                     },
-                    child: const Text('Forgot Password?', style: TextStyle(color: Colors.black)),
+                    child: const Text('Forgot Password?',
+                        style: TextStyle(color: Colors.black)),
                   ),
                   const SizedBox(height: 10),
-
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => Signin()),
+                        MaterialPageRoute(
+                          builder: (context) => Signin(), // استدعاء صفحة الهوم
+                        ),
+                        (Route<dynamic> route) =>
+                            false, // إزالة الصفحات السابقة
                       );
                     },
                     child: const Text.rich(
@@ -140,7 +150,9 @@ class _LoginBodyState extends State<LoginBody> {
                         text: 'Don\'t have an account? ',
                         style: TextStyle(color: Colors.black),
                         children: [
-                          TextSpan(text: 'Sign Up', style: TextStyle(color: Color(0xFFE8C3BA))),
+                          TextSpan(
+                              text: 'Sign Up',
+                              style: TextStyle(color: Color(0xFFE8C3BA))),
                         ],
                       ),
                     ),
