@@ -137,14 +137,14 @@ class _HomePageState extends State<Companyhomepage>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 20),
                   _buildTextAboveButton0(
                       "Welcome to Our Application! "), // النص قبل الزر
-                  const SizedBox(height: 35),
+                  const SizedBox(height: 20),
                   _buildTextAboveButton(
-                      "    We’re here to help you showcase your products and services effectively. On this page, you can display your latest offerings, special promotions, and more.  "), // النص قبل الزر
+                      "We’re here to help you showcase your products and services effectively. On this page, you can display your latest offerings, special promotions, and more.  "), // النص قبل الزر
                   _buildTextAboveButton(
-                      "    Enjoy a seamless and integrated experience for promoting your business and engaging with your customers. Let’s get started on building a strong brand presence together!"), // النص قبل الزر
+                      "Enjoy a seamless and integrated experience for promoting your business and engaging with your customers. Let’s get started on building a strong brand presence together!"), // النص قبل الزر
 
                   const SizedBox(height: 65),
 
@@ -229,7 +229,7 @@ class _HomePageState extends State<Companyhomepage>
       child: Text(
         text,
         style: const TextStyle(
-          fontSize: 23,
+          fontSize: 22,
           fontWeight: FontWeight.bold,
           color: Colors.black38,
         ),

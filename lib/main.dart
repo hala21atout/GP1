@@ -20,6 +20,9 @@ import 'Paymentsuccessfully.dart';
 import 'PaymentInformationPage.dart';
 import 'Addproduct.dart';
 import 'Ordermanagement.dart';
+import 'Asaguest.dart';
+import 'ForgotPasswordScreen.dart';
+import 'ResetPasswordScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: DoctorsHomePage(),
+      home: ResetPasswordScreen(resetToken: '',),
     );
   }
 }

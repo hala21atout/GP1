@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gp1/screens/SigninScreen/signin.dart';
+import 'package:gp1/ForgotPasswordScreen.dart';
 
 class LoginBody extends StatefulWidget {
   @override
@@ -128,7 +129,12 @@ class _LoginBodyState extends State<LoginBody> {
                   const SizedBox(height: 10),
                   TextButton(
                     onPressed: () {
-                      // معالجة الضغط على زر "نسيت كلمة المرور"
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ForgotPasswordScreen()), // الانتقال لصفحة Doctors
+                      );
                     },
                     child: const Text('Forgot Password?',
                         style: TextStyle(color: Colors.black)),
