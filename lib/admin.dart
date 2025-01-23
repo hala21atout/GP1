@@ -170,6 +170,7 @@ class DashboardPage extends StatelessWidget {
       ),
     );
   }
+
 //
   Widget _buildStatCard(
       String title, String value, IconData icon, Color color) {
@@ -307,6 +308,7 @@ class _UserListPageState extends State<UserListPage> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
@@ -351,13 +353,16 @@ class _UserListPageState extends State<UserListPage> {
                 );
               },
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showAddItemDialog(context); // Show dialog to add new item
-        },
-        backgroundColor: const Color(0xFFE8C3BA),
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
+      // إظهار زر الإضافة فقط إذا لم تكن الصفحة للمنتجات
+      floatingActionButton: widget.type != 'Product'
+          ? FloatingActionButton(
+              onPressed: () {
+                _showAddItemDialog(context); // Show dialog to add new item
+              },
+              backgroundColor: const Color(0xFFE8C3BA),
+              child: const Icon(Icons.add, color: Colors.white),
+            )
+          : null, // لا يوجد زر إضافة في صفحة المنتجات
     );
   }
 
