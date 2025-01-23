@@ -11,10 +11,11 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
 
   final List<Widget> _pages = [
     const DashboardPage(),
-    const UserListPage(type: 'Customer'),
-    const UserListPage(type: 'Doctor'),
-    const UserListPage(type: 'Company'),
-    const UserListPage(type: 'Product'),
+    UserListPage(type: 'Customer', key: ValueKey('Customer')),
+    UserListPage(type: 'Doctor', key: ValueKey('Doctor')),
+    UserListPage(type: 'Company', key: ValueKey('Company')),
+    UserListPage(type: 'Product', key: ValueKey('Product')),
+    UserListPage(type: 'Review', key: ValueKey('Review')),
   ];
 
   @override
@@ -36,9 +37,9 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
           ),
         ),
       ),
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        child: _pages[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -71,6 +72,10 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: 'Product',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.reviews),
+            label: 'Reviews',
           ),
         ],
       ),
@@ -171,7 +176,6 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-//
   Widget _buildStatCard(
       String title, String value, IconData icon, Color color) {
     return Card(
@@ -271,35 +275,31 @@ class _UserListPageState extends State<UserListPage> {
   }
 
   void _deleteItem(int index) {
+    setState(() {
+      items.removeAt(index);
+    });
+  }
+
+  void _confirmDelete(int index) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          title: const Text(
-            "Confirm Delete",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+          title: const Text(" Confirm Deletion"),
           content: const Text("Are you sure you want to delete this item?"),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog
+                Navigator.pop(context); // إغلاق مربع الحوار
               },
               child: const Text("Cancel"),
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-              ),
+            TextButton(
               onPressed: () {
-                setState(() {
-                  items.removeAt(index); // Delete the item
-                });
-                Navigator.pop(context); // Close the dialog
+                _deleteItem(index); // حذف العنصر
+                Navigator.pop(context); // إغلاق مربع الحوار
               },
-              child: const Text("Delete"),
+              child: const Text("Delete", style: TextStyle(color: Colors.red)),
             ),
           ],
         );
@@ -307,7 +307,6 @@ class _UserListPageState extends State<UserListPage> {
     );
   }
 
-  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -343,41 +342,71 @@ class _UserListPageState extends State<UserListPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: _buildSubtitle(item),
                     ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: () {
-                        _deleteItem(index); // Delete item with confirmation
-                      },
-                    ),
+                    trailing: widget.type != 'Review'
+                        ? IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              _confirmDelete(index); // تأكيد الحذف
+                            },
+                          )
+                        : null, // لا يوجد زر حذف في صفحة الـ Review
                   ),
                 );
               },
             ),
-      // إظهار زر الإضافة فقط إذا لم تكن الصفحة للمنتجات
-      floatingActionButton: widget.type != 'Product'
+      floatingActionButton: widget.type != 'Product' && widget.type != 'Review'
           ? FloatingActionButton(
               onPressed: () {
-                _showAddItemDialog(context); // Show dialog to add new item
+                _showAddItemDialog(context); // عرض مربع حوار لإضافة عنصر جديد
               },
               backgroundColor: const Color(0xFFE8C3BA),
               child: const Icon(Icons.add, color: Colors.white),
             )
-          : null, // لا يوجد زر إضافة في صفحة المنتجات
+          : null, // لا يوجد زر إضافة في صفحة المنتجات أو الـ Reviews
     );
   }
 
   List<Widget> _buildSubtitle(Map<String, String> item) {
     List<Widget> widgets = [];
-    item.forEach((key, value) {
-      if (key != 'name') {
-        widgets.add(
-            Text('$key: $value', style: TextStyle(color: Colors.grey[700])));
-      }
-    });
+    if (widget.type == 'Review') {
+      widgets.add(
+        Row(
+          children: List.generate(
+            5,
+            (index) => Icon(
+              Icons.star,
+              color: index < (int.tryParse(item['stars'] ?? '0') ?? 0)
+                  ? Colors.amber
+                  : Colors.grey,
+            ),
+          ),
+        ),
+      );
+      widgets.add(const SizedBox(height: 5));
+      widgets.add(
+        Text(
+          item['feedback'] ?? '',
+          style: TextStyle(color: Colors.grey[700]),
+        ),
+      );
+    } else {
+      // عرض البيانات العادية للأقسام الأخرى
+      item.forEach((key, value) {
+        if (key != 'name') {
+          widgets.add(
+            Text(
+              '$key: $value',
+              style: TextStyle(color: Colors.grey[700]),
+            ),
+          );
+        }
+      });
+    }
     return widgets;
   }
 
   List<Map<String, String>> _getDummyData(String type) {
+    // تحديث البيانات ديناميكياً حسب النوع
     switch (type) {
       case 'Customer':
         return [
@@ -425,6 +454,24 @@ class _UserListPageState extends State<UserListPage> {
             'price': '\$20',
             'description': 'For sensitive skin, hypoallergenic',
             'warnings': 'Avoid contact with eyes',
+          },
+        ];
+      case 'Review':
+        return [
+          {
+            'name': 'Hala Atout',
+            'stars': '5',
+            'feedback': 'Great app! Very user-friendly and helpful.',
+          },
+          {
+            'name': 'John Doe',
+            'stars': '4',
+            'feedback': 'Good experience, but could use some improvements.',
+          },
+          {
+            'name': 'Jane Smith',
+            'stars': '3',
+            'feedback': 'Average app, needs more features.',
           },
         ];
       default:
@@ -512,6 +559,13 @@ class _UserListPageState extends State<UserListPage> {
           _buildTextField(controllers, 'price', 'Price'),
           _buildTextField(controllers, 'description', 'Description'),
           _buildTextField(controllers, 'warnings', 'Warnings'),
+        ]);
+        break;
+      case 'Review':
+        fields.addAll([
+          _buildTextField(controllers, 'name', 'User Name'),
+          _buildTextField(controllers, 'stars', 'Stars (1-5)'),
+          _buildTextField(controllers, 'feedback', 'Feedback'),
         ]);
         break;
     }
